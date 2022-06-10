@@ -1,0 +1,4 @@
+find /bin/ -name file1.txt   #искать файл с названием file1.txt
+find /usr/share -name '*.jpg'   #искать файлы с расширением .jpg
+find /lib64 -size +10MB   #искать файлы размером свыше 10Мб
+find /dev -mmnin -1   #искать файлы измененные менее минуты назад
