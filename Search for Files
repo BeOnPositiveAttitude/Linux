@@ -18,5 +18,11 @@ find -not -name "f*"   #искать файлы начинающиеся НЕ н
 find \! -name "f*"   #искать файлы начинающиеся НЕ на f, альтернативный вариант
 find -perm 664   #искать файлы в точности с permissions 664
 find -perm -664   #искать файлы как минимум с permissions 664, если есть файлы с extra-permissions, то такие файлы тоже отразятся в результатах поиска
-find -perm /664   #искать файлы у которых есть какие-либо из указанных permissions
-
+find -perm /664   #искать файлы у которых есть какие-либо из указанных permissions, если юзер имеет права только на чтение, то это войдет в результат поиска
+# т.к. u=r и это входит 
+# Find files/directories under /var/log/ directory that the group can write to, but others cannot read or write to it. 
+# Permissions for the group have to be at least w. If there's also an extra r or x in there, it will still match.
+# Permissions for others have not to be r or w. That means, if any of these two permissions, r or w match for others, the result has to be excluded.
+# Ответ - sudo find /var/log/ -perm -g=w ! -perm /o=rw > /home/bob/data.txt
+sudo find /var/ -name pets -type d   #искать только директории с именем pets
+sudo find /usr -size +5M -size -10M -type f > /home/bob/size.txt   #искать файлы размером от 5 до 10 Мб
