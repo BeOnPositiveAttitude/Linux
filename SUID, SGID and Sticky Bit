@@ -13,3 +13,4 @@ chmod 1777 dir1   #все тоже самое аналогично для sticky
 find . -perm /4000   #искать в текущей директории файлы с установленным SUID
 find . -perm /2000   #искать в текущей директории файлы с установленным SGID
 find . -perm /6000   #искать в текущей директории файлы с установленным SUID/SGID
+chmod u+s,g+s,o+t /home/bob/datadir   #установить SUID, SGID и sticky bit
