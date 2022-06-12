@@ -1,5 +1,8 @@
 tac file1   #аналог cat, только выведет содержимое файла в обратном порядке, line3, line2, line1
 sed -i 's/canda/canada/g' userinfo.txt   #заменить все слова canda на слово canada, s=substitute, g=global search and replace, i=in-place
+sed -i 's/disabled/enabled/gi' values.conf   #i=case insensitive
+sed -i '500,2000s/enabled/disabled/g' values.conf   #заменить с 500 по 2000 строку
+sed -i 's~#%$2jh//238720//31223~$2//23872031223~g' /home/bob/data.txt   #экранировать все что между 's~value1~value2~g', тут уже без прямых слэшей
 # без опции g sed заменит только первое найденное на каждой строке вхождение, и если таковых на каждой строке будет несколько, остальные останутся без изменений
 # без опции i sed только покажет будущий результат, но не изменить сам файл
 cut -d ' ' -f 1 userinfo.txt   #оставит нам только первый столбец с именами из файла, d=delimiter, разделитель, в нашем случае это пробел между словами
