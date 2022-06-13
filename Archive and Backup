@@ -20,3 +20,8 @@ gunzip -l file1.gz   #l=list, смотреть содержимое архива
 zip archive.zip file1   #упаковать файл в формате .zip
 zip -r archive.zip Pictures/   #r=recursively, упаковать папку
 unzip archive.zip   #распаковать архив
+tar -czf archive.tar.gz file1   #объединяем tar и gzip для создания архива
+tar -cjf archive.tar.bz2 file1   #объединяем tar и bzip2 для создания архива
+tar -cJf archive.tar.xz file1   #объединяем tar и xz для создания архива
+tar -caf archive.tar.gz file1   #a=autocompress, автоматически определит какой использовать формат архива на основании расширения файла
+tar -xf archive.tar.gz file1   #распаковать архив
