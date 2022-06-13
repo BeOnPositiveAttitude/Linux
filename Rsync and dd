@@ -1,0 +1,11 @@
+#rsync=remote synchronization
+rsync -a Pictures/ aaron@9.9.9.9:/home/aaron/Pictures/    #синхронизировать локальную папку с удаленной
+#при повторном запуске rsync только синхронизирует новые изменения, старые данные копироваться заново не будут
+rsync -a aaron@9.9.9.9:/home/aaron/Pictures/ Pictures/   #синхронизировать в обратном направлении, src=9.9.9.9, dest=наш комп
+rsync -a Pictures/ /Backups/Pictures/   #можно синхронизировать две локальные директории
+# dd используется для копирования целого диска или раздела, создания его образа; диск-источник должен быть отмонтирован перед началом копирования
+sudo dd if=/dev/vda of=diskimage.raw bs=1M status=progress   #сделать образ диска, if=input file, of=output file, bs=block size, 
+# status=progress показывать прогресс выполнения
+sudo dd if=diskimage.raw of=/dev/vda bs=1M status=progress   #записать образ на диск
+# не запускать dd на виртуальных дисках!!!
+
