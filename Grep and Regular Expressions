@@ -1,8 +1,8 @@
 grep -ir 'CentOS' /etc/   #r=recursive, искать рекурсивно по всей папке, i=case insensitive поиск 
 grep -vi 'centos' /etc/os-release   #v=inVert-match, искать строки в которых нет слова centos
 grep -oi 'centos' /etc/os-release   #o=only-matching, вывести только совпадающие слова, а не строки целиком
-grep '^sam' names.txt   #искать имена начинающиеся на sam
-grep 'sam$' names.txt   #искать имена заканчивающиеся на sam
+grep '^sam' names.txt   #искать строки начинающиеся на sam
+grep 'sam$' names.txt   #искать строки заканчивающиеся на sam
 # если нужно их скомбинировать, то ^ указвается первым, а $ последним
 grep -r 'c.t' /etc/   #искать слова содержащие в себе cat, cut, c5t и т.д., точка означает один символ, две точки - два символа
 grep -wr 'c.t' /etc/   #w=word, искать именно слова cat, cut, c5t и т.д., а не содержащие их большие слова, например execute
