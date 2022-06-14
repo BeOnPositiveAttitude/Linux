@@ -1,0 +1,11 @@
+<file1.txt   #stdin
+1>file1.txt or >file1.txt   #stdout
+2>errors.txt   #stderr
+2>/dev/null   #отправить ошибки "в никуда"
+grep -r '^The' /etc/ 1>output.txt 2>errors.txt   #перенаправить stdout и stderr в разные файлы
+grep -r '^The' /etc/ 1>>output.txt 2>>errors.txt   #перенаправить stdout и stderr в разные файлы, с дозаписыванием в конец файлов
+grep -r '^The' /etc/ 1>all_output.txt 2>&1   #или 
+grep -r '^The' /etc/ > all_output.txt 2>&1   #перенаправить stdout и stderr в один и тот же файл, важно соблюдать очередность
+# 2>&1 означает направить stderr в stdout
+sendemail someone@example.com < emailcontent.txt   #передать текст письма на вход команды sendemail
+
