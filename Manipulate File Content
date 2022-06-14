@@ -10,6 +10,7 @@ cut -d ' ' -f 1 userinfo.txt   #оставит нам только первый 
 uniq countries.txt   #удалить повторяющиеся друг за другом (важно!) строки, если есть дубли вразнобой, то они останутся
 sort countries.txt   #отсортировать названия стран в алфавитном порядке
 sort countries.txt | uniq    #сначала отсортировать и затем удалить повторяющиеся дубли
+sort -du values.txt   #d=dictionary-order, consider only blanks and alphanumeric characters, u=unique, сортировать и убрать дубли
 diff file1 file2   #сравнить два файла
 diff -c file1 file2   #сравнить два файла, c=context
 sdiff file1 file2   #сравнить два файла, откроются в более удобном side-by-side формате
