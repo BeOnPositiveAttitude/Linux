@@ -1,0 +1,4 @@
+systemctl get-default   #смотреть таргет по умолчанию
+systemctl set-default multi-user.target   #установить новый таргет по умолчанию, нужна перезагрузка для применения
+systemctl isolate graphical.target   #временно переключиться на другой таргет, не требует перезагрузки
+# также существуют emergency и rescue таргеты
