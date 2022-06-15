@@ -1,0 +1,13 @@
+# существуют различные виды unit-ов - service, socket, device, timer и другие
+man systemd.service   #смотреть справку
+# service unit описывает каким образом приложение запускается, перезапускается и т.д.
+systemctl cat sshd.service   #смотреть содержимое сервис-юнита для sshd
+systemctl edit --full sshd.service   #редактировать содержимое сервис-юнита
+systemctl revert sshd.service   #вернуть содержимое сервис-юнита к "заводским" настройкам
+systemctl reload-or-restart sshd.service   #так как некоторые программы не умеют reload, можно воспользоваться такой командой, 
+# которая попытается сделать сначала reload и если он недоступен, то сделает restart
+systemctl enable --now sshd.service   #добавить в автозапуск и сразу же стартовать службу
+systemctl disable --now sshd.service   #отключить автозапуск и сразу же остановить службу
+systemctl mask atd.service   #маскировать службу, это запрещает старт службы и добавление ее в автозапуск
+systemctl unmask atd.service   #убрать маскирование
+systemctl list-units --type service -all   #отобразит список всех service units в системе
