@@ -1,0 +1,4 @@
+#!/bin/bash   #с этого начинается любой скрипт, комбинация #! называется shebang
+#Log the date and time the script was last executed
+date >> /tmp/script.log
+cat /proc/version >> /tmp/scipt.log
