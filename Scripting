@@ -7,9 +7,20 @@ help   #смотреть список bash built-ins, список команд 
 help test   #смотреть справку по команде test
 
 #!/bin/bash
-if test -f /tmp/archive.tar.gz; then
+if test -f /tmp/archive.tar.gz; then   #test -f проверяет существует ли файл по указанному пути, 
+                                       #если существует, то он переименовывается как старый и создается новый архив
     mv /tmp/archive.tar.gz /tmp/archive.tar.gz.OLD
     tar acf /tmp/archive.tar.gz /etc/dnf/
 else 
-    tar acf /tmp/archive.tar.gz /etc/dnf/
+    tar acf /tmp/archive.tar.gz /etc/dnf/   #если не существует, то просто создается новый архив
 fi
+
+#!/bin/bash
+if grep -q '5' /etc/default/grub; then   #q означает тихий режим, не выводить найденные совпадения на консоль,
+                                         #в данном случае скрипт работает на основе exit code, 0=успех, все что больше нуля - провал
+    echo 'Grub has timeout of 5 seconds.'
+else
+    echo 'Grub DOES NOT have a timeout of 5 seconds.'
+fi
+
+cat /etc/cron.hourlv/0anacron   #пример скрипта в котором можно посмотреть основные моменты
