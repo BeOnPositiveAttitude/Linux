@@ -9,3 +9,4 @@ shutdown +15   #выключить через 15 минут от момента 
 shutdown -r 02:00   #перезагрузка по расписанию
 shutdown -r +15   #перезагрузка по расписанию через 15 минут от момента ввода команды
 shutdown -r +5 'Scheduled restart to do an offline-backup of out database'   #отобразить сообщение всем юзерам в системе
+shutdown -c   #отменить запланированные shutdown-ы
