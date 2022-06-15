@@ -2,3 +2,14 @@
 #Log the date and time the script was last executed
 date >> /tmp/script.log
 cat /proc/version >> /tmp/scipt.log
+
+help   #смотреть список bash built-ins, список команд которые можно использовать в скриптах
+help test   #смотреть справку по команде test
+
+#!/bin/bash
+if test -f /tmp/archive.tar.gz; then
+    mv /tmp/archive.tar.gz /tmp/archive.tar.gz.OLD
+    tar acf /tmp/archive.tar.gz /etc/dnf/
+else 
+    tar acf /tmp/archive.tar.gz /etc/dnf/
+fi
