@@ -13,3 +13,6 @@ crontab -e   #редактировать cron table текущего юзера
 35 6 * * * /usr/bin/touch test_file   #необходимо указывать полный путь до исполняемого файла
 crontab -l   #смотреть cron table для текущего юзера
 sudo crontab -l   #смотреть cron table для root-a
+sudo crontab -e -u jane   #u=user, редактировать cron table юзера jane
+crontab -r   #r=remove, удалить cron table для текущего юзера
+crontab -r -u jane   #удалить cron table юзера jane
