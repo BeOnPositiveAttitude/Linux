@@ -16,3 +16,13 @@ sudo crontab -l   #смотреть cron table для root-a
 sudo crontab -e -u jane   #u=user, редактировать cron table юзера jane
 crontab -r   #r=remove, удалить cron table для текущего юзера
 crontab -r -u jane   #удалить cron table юзера jane
+# существует несколько директорий для задач cron
+/etc/cron.daily
+/etc/cron.hourly
+/etc/cron.monthly
+/etc/cron.weekly
+# скрипты для исполнения cron-ом не должны иметь extension, то есть не должно быть .sh
+# копируем нужный нам скрипт в соответствующую директорию выше и даем ему права +rx
+sudo vim /etc/anacrontab   #файл для задания anacron-jobs
+# 3 (каждые три дня)   10 (задержка перед запуском джобы в минутах, т.к. если на этот день запланирован запуск 15 джобов, и сервер был выключен
+# и затем включился, чтобы они не запустились все разом и не)
