@@ -1,0 +1,23 @@
+dnf check-upgrade   #смотреть для каких пакетов вышли обновления
+sudo dnf upgrade   #обновить пакеты
+sudo dnf repolist -v   #v=verbose, смотреть список настроенных в системе репозиториев
+sudo dnf repolist --all   #смотреть список всех доступных для добавления репозиториев от CentOS
+sudo dnf config-manager --enable powertools   #включить дополнительный репозиторий, powertools берется из вывода repolist --all
+sudo dnf config-manager --disable powertools   #выключить репо
+sudo dnf config-manager --add-repo https://repo_url   #добавить сторонний third-party репозиторий
+sudo rm /etc/yum.repos.d/docker-ce.repo   #удалить third-party репозиторий из системы
+sudo dnf search 'web server'   #искать название пакета по заданным критериям
+sudo dnf info nginx   #смотреть информацию о пакете
+sudo dnf reinstall nginx   #переустановить пакет, если например мы случайно удалили какой-нибудь файл
+sudo dnf install nginx   #установить пакет
+sudo dnf remove nginx   #удалить пакет
+sudo dnf install ./package_name.rpm   #установить RPM-пакет
+sudo dnf group list   #смотреть группы пакетов
+sudo dnf group list --hidden   #смотреть расширенный набор группы пакетов
+# например если нужно установить на сервер графический интерфейс (включающий в себя десятки пакетов), мы можем дать команду
+sudo dnf group install 'Server with GUI'   #имя группы пакетов берется из вывода list
+sudo dnf group install --with-optional 'Server with GUI'   #установить группу пакетов с заданным именем плюс дополнительные расширенные пакеты
+sudo dnf group remove 'Server with GUI'   #удалить группу пакетов
+sudo dnf autoremove   #удалить пакеты-зависимости, которые более не используются в системе
+sudo dnf history   #смотреть историю действий с менеджером пакетов dnf
+# если забыл команду можно написать sudo dnf tab tab y и отобразится список возможных действий
