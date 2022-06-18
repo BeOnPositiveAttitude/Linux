@@ -1,0 +1,9 @@
+# если мы испортили например файл /etc/anacrontab, мы можем выяснить какой пакет предоставляет этот файл с помощью команды:
+dnf provides /etc/anacrontab
+# выяснили что это пакет cronie-anacron
+sudo rm /etc/anacrontab   #удаляем испорченный файл
+dnf reinstall cronie-anacron   #переустанавливаем пакет
+# еще пример, нам нужно использовать команду docker, но мы не знаем какой пакет ее предоставляет, узнать:
+dnf provides docker
+dnf repoquery -l nginx   #l=list, смотреть какие файлы содержит пакет, даже неустановленный в системе
+dnf repoquery -l nginx | grep conf   #также можно грепнуть, чтобы найти расположение конфиг-файлов nginx
