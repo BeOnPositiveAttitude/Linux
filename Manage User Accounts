@@ -1,0 +1,22 @@
+sudo useradd john   #создаст нового юзера john, primary group - john, home-каталог, сделает шеллом по умолчанию /bin/bash
+# файлы из /etc/skel будут скопированы в home-каталог
+useradd -D   #D=defaults, смотреть настройки по умолчанию для создания новых УЗ в системе
+cat /etc/login.defs   #смотреть настройки по умолчанию для создания новых УЗ в системе
+sudo userdel john   #удалит юзера john, primary group - john, home-каталог при этом останется
+sudo userdel -r john   #r=remove, удалит юзера john, primary group - john и его home-каталог
+sudo useradd -s /bin/othershell -d /home/otherdirectory/ john   #s=shell, d=home-dir, задать особый шелл и хомяк при создании нового юзера
+sudo useradd -u 1100 smith   #u=uid, задать вручную uid пользователя
+ls -ln /home   #n=numeric, отобразит владельца и группу в числовом формате, а не в именах
+sudo useradd --system sysacc   #добавить системного юзера, id будет меньше 1000, хомяк не создается для системного юзера
+sudo usermod -d /home/otherdirectory -m john   #d=home-dir, m=move-home, переименовать хомяк юзера john в /home/otherdirectory
+sudo usermod -l jane john   #l=login, переименовать юзера john в jane
+sudo usermod -s /bin/othershell jane   #s=shell, сменить шелл для юзера jane
+sudo usermod -L jane   #L=lock, залочить аккаунт юзера
+sudo usermod -U jane   #U=unlock, разлочить аккаунт юзера
+sudo usermod -e 2021-12-10 jane   #e=expiredate, YY-MM-DD, установить дату экспирации аккаунта
+sudo usermod -e "" jane   #для удаления даты экспирации аккаунта мы посылаем пустую строку
+sudo chage -d 0 jane   #d=lastday, при следующем логине юзера попросят сменить пароль, т.к. он устарел
+sudo chage -d -1 jane   #для отмены экспирации пароля посылаем -1
+sudo chage -M 30 jane   #M=maxdays, менять пароль каждые 30 дней для юзера jane
+sudo chage -M -1 jane   #чтобы пароль никогда не протухал
+sudo chage -l jane   #l=list, смотреть дату экспирации УЗ
