@@ -1,0 +1,5 @@
+groups   #смотреть в каких группах состоит текущий юзер
+sudo gpasswd -a trinity wheel   #добавить тринити в группу wheel, чтобы дать ей админские права
+sudo visudo   #для редактирования файла /etc/sudoers
+%wheel ALL=(ALL) ALL   #user/group host=(run_as_user) command_list, % означает группу
+sudo -u trinity ls /home/trinity   #запустить команду от лица юзера тринити
