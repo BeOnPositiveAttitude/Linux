@@ -1,0 +1,2 @@
+sudo vim /etc/security/limits.conf   #в этом файле задаются лимиты на ресурсы системы
+# <domain> может быть юзер в формате jane или группа в формате @developers
