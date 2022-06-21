@@ -4,6 +4,13 @@ ip route show = ip r   #смотреть роуты
 cat /etc/resolv.conf   #смотреть dns-серверы
 /etc/sysconfig/network-scripts/   #путь где лежат файлы с настройками сетевых интерфейсов
 # nmtui - network manager text user interface
-sudo nmcli device reapply enp0s03   #применить сетевые настройки после изменения, не дожидаясь перезагрузки
+sudo nmcli device reapply enp0s3   #применить сетевые настройки после изменения, не дожидаясь перезагрузки
 sudo vim /etc/hosts   #файл хостс
 nmcli tab tab   #смотреть список возможных команд nmcli
+systemctl status NetworkManager.service   #статус службы, важно указывать именно большие буквы N и M
+sudo dnf install NetworkManager   #если не установлен изначально
+ncmli connection show   #смотреть список сетевых интерфейсов
+sudo nmcli connection modify enp0s3 autoconnect yes   #автоматически включать интерфейс при загрузке системы
+sudo ss -tulpn   #l=listening, t=tcp, u=udp, n=numeric (показать номера портов вместо имен сервисов), p=processes
+# если в выводе ss в колонке "Local Address:Port" мы видим например адрес 127.0.0.1:323, это значит он принимает подключения только от сервисов
+# установленных на этом же сервере, мы видим например адрес 0.0.0.0:22, это значит он принимает подключения от внешних сервисов за пределами нашего хоста
