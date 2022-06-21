@@ -1,0 +1,9 @@
+ip link show = ip l   #смотреть имена сетевых интерфейсов
+ip addresses show = ip a   #смотреть айпишники
+ip route show = ip r   #смотреть роуты
+cat /etc/resolv.conf   #смотреть dns-серверы
+/etc/sysconfig/network-scripts/   #путь где лежат файлы с настройками сетевых интерфейсов
+# nmtui - network manager text user interface
+sudo nmcli device reapply enp0s03   #применить сетевые настройки после изменения, не дожидаясь перезагрузки
+sudo vim /etc/hosts   #файл хостс
+nmcli tab tab   #смотреть список возможных команд nmcli
