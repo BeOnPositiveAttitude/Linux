@@ -1,0 +1,10 @@
+# public-zone по дефолту запрещает все входящие подключения, кроме разрешенных
+firewall-cmd --get-default-zone   #смотреть дефолтную зону, по умолчанию это public
+firewall-cmd --set-default-zone=public   #установить зону по умолчанию
+firewall-cmd --list-all   #смотреть текущие правила FW
+firewall-cmd --info-service=cockpit   #смотреть порт сервиса по его имени
+firewall-cmd --add-service=http   #добавить новый сервис в разрешенные
+firewall-cmd --add-port=80/tcp   #или добавить новый порт в разрешенные
+firewall-cmd --remove-service=http   #удалить сервис из разрешенных
+firewall-cmd --remove-port=80/tcp   #или удалить порт из разрешенных
+firewall-cmd --add-source=10.11.12.0/24 --zone=trusted   #добавить диапазон адресов в зону trusted
