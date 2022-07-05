@@ -3,8 +3,12 @@ firewall-cmd --get-default-zone   #смотреть дефолтную зону,
 firewall-cmd --set-default-zone=public   #установить зону по умолчанию
 firewall-cmd --list-all   #смотреть текущие правила FW
 firewall-cmd --info-service=cockpit   #смотреть порт сервиса по его имени
-firewall-cmd --add-service=http   #добавить новый сервис в разрешенные
-firewall-cmd --add-port=80/tcp   #или добавить новый порт в разрешенные
+firewall-cmd --add-service=http   #временно добавить новый сервис в разрешенные
+firewall-cmd --add-port=80/tcp   #или временно добавить новый порт в разрешенные и сразу сделает правило активным
 firewall-cmd --remove-service=http   #удалить сервис из разрешенных
 firewall-cmd --remove-port=80/tcp   #или удалить порт из разрешенных
 firewall-cmd --add-source=10.11.12.0/24 --zone=trusted   #добавить диапазон адресов в зону trusted
+firewall-cmd --remove-source=10.11.12.0/24 --zone=trusted   #удалить диапазон адресов из зоны trusted
+firewall-cmd --get-active-zones   #смотреть активные зоны
+firewall-cmd --runtime-to-permanent   #записать все текущие (и возможно временные) правила в постоянные
+firewall-cmd --add-port=12345/tcp --permanent   #добавить правило на постоянной основе, но оно не включится сразу
