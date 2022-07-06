@@ -6,3 +6,4 @@ sudo timedatectl set-timezone America/New_York   #установить тайм-
 sudo dnf install chrony   #ставим хрони
 sudo systemctl enable --now chronyd.service   #включаем
 sudo timedatectl set-ntp true   #включить NTP
+sudo timedatectl set-local-rtc 1   #включить RTC (real-time clock) = синхронизация времени от системной часов, запитанных от батарейки
