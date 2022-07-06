@@ -5,4 +5,4 @@ timedatectl list-timezones   #смотреть список доступных �
 sudo timedatectl set-timezone America/New_York   #установить тайм-зону
 sudo dnf install chrony   #ставим хрони
 sudo systemctl enable --now chronyd.service   #включаем
-sudo systemctl set-ntp true   #включить NTP
+sudo timedatectl set-ntp true   #включить NTP
