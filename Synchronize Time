@@ -1,5 +1,6 @@
 systemctl status chronyd.service   #статус службы хронид
 timedatectl   #смотреть статус синхронизации времени
+timedatectl show   #смотреть статус синхронизации времени
 timedatectl list-timezones   #смотреть список доступных тайм-зон
 sudo timedatectl set-timezone America/New_York   #установить тайм-зону
 sudo dnf install chrony   #ставим хрони
