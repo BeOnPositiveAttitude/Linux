@@ -1,0 +1,7 @@
+systemctl status chronyd.service   #статус службы хронид
+timedatectl   #смотреть статус синхронизации времени
+timedatectl list-timezones   #смотреть список доступных тайм-зон
+sudo timedatectl set-timezone America/New_York   #установить тайм-зону
+sudo dnf install chrony   #ставим хрони
+sudo systemctl enable --now chronyd.service   #включаем
+sudo systemctl set-ntp true   #включить NTP
