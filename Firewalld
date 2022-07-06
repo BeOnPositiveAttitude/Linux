@@ -2,6 +2,7 @@
 firewall-cmd --get-default-zone   #смотреть дефолтную зону, по умолчанию это public
 firewall-cmd --set-default-zone=public   #установить зону по умолчанию
 firewall-cmd --list-all   #смотреть текущие правила FW
+firewall-cmd --list-all --permanent   #смотреть текущие постоянные правила FW
 firewall-cmd --info-service=cockpit   #смотреть порт сервиса по его имени
 firewall-cmd --add-service=http   #временно добавить новый сервис в разрешенные
 firewall-cmd --add-port=80/tcp   #или временно добавить новый порт в разрешенные и сразу сделает правило активным
