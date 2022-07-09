@@ -1,0 +1,13 @@
+sudo dnf install bind bind-utils
+/etc/named.conf   #конфиг-файл bind
+man named.conf   #смотреть ман по конфиг-файлу bind
+listen-on port 53 { 127.0.0.1; };   #если указан 127.0.0.1, значит bind будет принимать подключения только от сервисов с того же локального хоста
+listen-on port 53 { 127.0.0.1; 192.168.0.17; };   #указываем с какого хоста принимать подключения
+listen-on port 53 { any; };   #принимать подключения с любой адреса
+allow-query { localhost; };   #кому разрешено запрашивать инфу о dns с нашего bind
+allow-query { localhost; 192.168.0.0/24; };   #можно указать целую подсеть
+allow-query { any; };   #или вообще с любого адреса
+recursion yes;   #разрешить получать инфу о dns с других серверов в интернете (когда записи нет в собственном кеше)
+sudo systemctl enable --now named.service   #запустить bind
+firewall-cmd --add-service=dns --permanent   #добавить правило в FW
+dig @127.0.0.1 google.com   #выполняем с нашего bind для проверки работы
