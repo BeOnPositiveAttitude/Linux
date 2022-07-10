@@ -10,3 +10,4 @@ sudo newaliases   #применить новые алиасы
 sendmail advertising@localhost <<< "Hello, I'm just testing email."   #посылаем тестовый мейл
 # если добавим строку - contacts: aaron,john,jane при посылке почты на адрес contacts@localhost она будет направлена на три ящика юзеров
 # если добавим строку - advertising: aaron@somewebsite.com, почта уйдет на внешний почтовый сервер
+echo "This is a test email" | mailx -s "Hi John" john   #отправить почту юзер Джон через клиент mailx, s=subject
