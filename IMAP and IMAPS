@@ -1,0 +1,22 @@
+# IMAP - Internet Message Access Protocol, обычно используется dovecot в качестве демона IMAP
+sudo dnf install dovecot   #ставим
+sudo systemctl enable --now dovecot   #включаем
+sudo firewall-cmd --add-service=imap   #добавляем правило в FW
+sudo firewall-cmd --add-service=imaps   #добавляем правило в FW
+sudo firewall-cmd --runtime-to-permanent
+sudo vim /etc/dovecot/dovecot.conf   #главный конфиг
+protocols = imap   #включает imap и imaps
+listen = 10.11.12.9   #с каких адресов принимать подключения
+/etc/dovecot/conf.d/   #папка с конфигами
+sudo vim /etc/dovecot/conf.d/10-master.conf   #конфиг
+inet_listener imaps {
+   port = 993   #раскомментируем
+}
+sudo vim /etc/dovecot/conf.d/10-mail.conf   #конфиг
+mail_location = mbox:~/mail:INBOX=/var/mail/%u   #~/mail означает что вся почта юзера будет храниться в хомяке, /var/mail/%u ссылка на
+# /var/spool/mail/%u, где %u имя юзера
+sudo vim /etc/dovecot/conf.d/10-ssl.conf   #конфиг SSL
+ssl = required   #разрешены только защищенные соединения
+ssl = yes   #и защищенные и незащищенные соединения разрешены
+ssl_cert = </path/to/cert   #знак < обязателен
+ssl_key = </path/to/key   #знак < обязателен
