@@ -6,7 +6,7 @@ sudo firewall-cmd --add-service=imaps   #добавляем правило в FW
 sudo firewall-cmd --runtime-to-permanent
 sudo vim /etc/dovecot/dovecot.conf   #главный конфиг
 protocols = imap   #включает imap и imaps
-listen = 10.11.12.9   #с каких адресов принимать подключения
+listen = 10.11.12.9   #на каких интерфейсах системы принимать подключения
 /etc/dovecot/conf.d/   #папка с конфигами
 sudo vim /etc/dovecot/conf.d/10-master.conf   #конфиг
 inet_listener imaps {
