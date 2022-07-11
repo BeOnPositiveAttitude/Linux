@@ -1,0 +1,28 @@
+sudo vim /etc/ssh/sshd_config   #конфиг демона sshd
+sudo vim /etc/ssh/ssh_config   #конфиг клиента ssh, в нем лучше настройки не менять, т.к. при обновлении ssh настройки могут быть перезаписаны на дефолтные
+sudo vim /etc/ssh/ssh_config.d/99-our-settings.conf   #лучше создать свой файл с настройками по этом пути, 99 = наименьший приоритет
+man sshd_config   #мануал по конфигу демона sshd
+man ssh_config   #мануал по конфигу клиента ssh
+Port 22   #номер порта, на котором слушает демон sshd
+AddressFamily any   #any = использовать и ipv4 и ipv6, inet = только ipv4, inet6 = только ipv6
+ListenAddress 10.11.12.9   #принимать подключения только с интерфейса с адресом 10.11.12.9
+PermitRootLogin yes   #разрешать подключаться под рутом
+PasswordAuthentication no   #не разрешено подключаться через ввод пароля
+Match User aaron
+      PasswordAuthentication yes   #сделать исключение для юзера aaron
+X11Forwarding yes   #X11 forwarding — это механизм, позволяющий отображать на локальном клиентском компьютере графические интерфейсы X11 программ, 
+# запущенных на удаленном Unix/Linux сервере. 
+sudo systemctl reload sshd.service   #применить новые настройки sshd
+
+vim /home/aaron/.ssh/config   #конфиг с настройками клиента
+Host centos
+      HostName 10.11.12.9
+      Port 22
+      User aaron
+chmod 600 .ssh/config   #меняем permissions для конфига
+# теперь можем подключиться через команду ssh centos
+ssh-keygen   #генерация ключей
+ssh-copy-id aaron@10.11.12.9   #копируем публичный ключ на удаленный сервер в файл /home/aaron/.ssh/authorized_keys
+# у файла authorized_keys тоже должны быть permissions 600
+ssh-keygen -R 10.11.12.9   #удалить запись о старом хосте из файла known_hosts
+
