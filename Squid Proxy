@@ -1,0 +1,5 @@
+sudo dnf install squid   #ставим
+sudo systemctl enable --now squid   #включаем
+sudo firewall-cmd --add-service=squid --permanent   #добавляем правило в FW
+sudo vim /etc/squid/squid.conf   #конфиг
+acl localnet src 192.168.0.0/16   #localnet - произвольное имя, можно например officenet, src = source
