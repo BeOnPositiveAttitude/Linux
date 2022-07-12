@@ -3,3 +3,11 @@ sudo systemctl enable --now squid   #включаем
 sudo firewall-cmd --add-service=squid --permanent   #добавляем правило в FW
 sudo vim /etc/squid/squid.conf   #конфиг
 acl localnet src 192.168.0.0/16   #localnet - произвольное имя, можно например officenet, src = source
+acl Safe_ports port 80   #acl для порта, Safe_ports - произвольное имя
+acl youtube dstdomain .youtube.com   #acl для youtube и всех его поддоменов
+http_access deny !Safe_ports   #при обращении по http отклонять подключения по портам не входящим в Safe_ports
+http_access deny to_localhost   #раскомментируем, чтобы ограничить доступ извне к приложениям хоста
+http_access allow localnet   #разрешен доступ по http для сети localnet
+http_access deny youtube   #запретить доступ к youtube, если правило будет идти после allow localnet, то блокировка не сработает из-за приоритета первого
+http_access allow localnet !youtube   #разрешен доступ по http для сети localnet, но запрещен для youtube, можно скомбинировать
+systemctl reload squid.service   #применить настройки
