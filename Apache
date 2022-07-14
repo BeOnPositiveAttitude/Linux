@@ -7,3 +7,34 @@ sudo systemctl enable --now httpd   #включаем
 man httpd.conf   #ман по конфигу апаче
 sudo vim /etc/httpd/conf/httpd.conf   #главный конфиг
 Listen 10.11.12.9:8080   #слушать на определенном порту на конкретном ip
+ServerAdmin webserverb@example.com   #контакты админа
+ServerName 10.11.12.9   #или можно указать dns:port
+DocumentRoot "/var/www/html"   #корневой каталог с файлами веб-сайта
+sudo vim /etc/httpd/conf.d/two-websites.conf   #создаем наш собственный конфиг для хостинга двух сайтов
+
+<VirtualHost *:80>   #звездочка означает принимать подключения с ip-адресов всех интерфейсов системы
+    ServerName store.example.com
+    DocumentRoot /var/www/store/
+</VirtualHost>
+
+<VirtualHost *:80>  #можно указать конкретный ip-адрес интерфейса, например для внутренней сети или для внешней
+    ServerName blog.example.com
+    DocumentRoot /var/www/blog/
+</VirtualHost>
+
+# первый VirtualHost считается дефолтным, т.е. если обращение будет к чему-то несуществующему в нашем конфиге, откроется первый VH
+apachectl configtest   #протестировать конфиг
+mkdir /var/www/store/
+mkdir /var/www/blog/
+vim /var/www/html/index.html => This is the MAIN site.
+vim /var/www/blog/index.html => This is the BLOG.
+vim /var/www/store/index.html => This is the STORE.
+sudo systemctl reload httpd.service
+sudo vim /etc/httpd/conf.d/ssl.conf   #конфиг с настройками SSL
+
+<VirtualHost *:80>   #звездочка означает принимать подключения с ip-адресов всех интерфейсов системы
+    ServerName www.example.com
+    SSLEngine on
+    SSLCertificateFile "/path/to/file.cert"
+    SSLCertificateKeyFile "/path/to/file.key"
+</VirtualHost>
