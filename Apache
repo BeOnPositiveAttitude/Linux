@@ -38,3 +38,6 @@ sudo vim /etc/httpd/conf.d/ssl.conf   #конфиг с настройками SS
     SSLCertificateFile "/path/to/file.cert"
     SSLCertificateKeyFile "/path/to/file.key"
 </VirtualHost>
+
+sudo vim /etc/httpd/conf.modules.d/00-mpm.conf   #конфиг модуля
+LoadModule   #комментируем строку для отключения модуля
