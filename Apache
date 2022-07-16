@@ -63,4 +63,24 @@ sudo vim /etc/httpd/conf.d/two-websites.conf
     DocumentRoot /var/www/blog/
 </VirtualHost>
 
-systemctl reload httpd.service
+sudo systemctl reload httpd.service
+
+# Restrict access to a web page
+sudo mv /etc/httpd/conf.d/two-websites.conf /etc/httpd/conf.d/two-websites.conf.disabled   #отключаем наш конфиг
+sudo systemctl reload httpd.service
+
+sudo vim /etc/httpd/conf/httpd.conf
+<Directory "/var/www/html">
+    Options Indexes FollowSymLinks   #Indexes позволяет просматривать содержимое директории, например если внутри /var/www/html/admin, 
+# index.html отсутствует, но есть файлы 1,2,3, то мы увидим их список при открытии в браузере localhost/admin
+# FollowSymLinks позволяет апаче использовать soft links, то есть если например файл 1 - это ярлык на setup.exe, то при нажатии на файл 1
+# файл setup.exe скачается
+    AllowOverride None   #запрещает различным CMS вроде WordPress применять индивидуальные настройки для apache с помощью .htaccess
+# опция All наоборот разрешит
+    Require all granted   #разрешает всем доступ к контенту /var/www/html
+<Directory "/var/www/html/admin">
+    Require all denied   #запретить доступ к админской директории всем
+</Directory>
+    
+</Directory>
+  
