@@ -41,3 +41,26 @@ sudo vim /etc/httpd/conf.d/ssl.conf   #конфиг с настройками SS
 
 sudo vim /etc/httpd/conf.modules.d/00-mpm.conf   #конфиг модуля
 LoadModule   #комментируем строку для отключения модуля
+
+# Настройка логирования
+sudo vim /etc/httpd/conf/httpd.conf
+ErrorLog "/var/log/httpd/error2/log"   #лог ошибок
+LogLevel warn   #уровень логирования
+LogFormat common или combined
+%h - remote host name, %l - log name, %u - user name, %t - time
+
+sudo vim /etc/httpd/conf.d/two-websites.conf 
+
+<VirtualHost *:80>
+    ServerName store.example.com
+    DocumentRoot /var/www/store/
+    CustomLog /var/log/httpd/store.example.com_access.log combined   #настраиваем хранение логов в отдельные файлы
+    ErrorLog /var/log/httpd/store.example.com_error.log
+</VirtualHost>
+
+<VirtualHost *:80>  #можно указать конкретный ip-адрес интерфейса, например для внутренней сети или для внешней
+    ServerName blog.example.com
+    DocumentRoot /var/www/blog/
+</VirtualHost>
+
+systemctl reload httpd.service
