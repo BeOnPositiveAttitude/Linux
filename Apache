@@ -78,9 +78,25 @@ sudo vim /etc/httpd/conf/httpd.conf
     AllowOverride None   #запрещает различным CMS вроде WordPress применять индивидуальные настройки для apache с помощью .htaccess
 # опция All наоборот разрешит
     Require all granted   #разрешает всем доступ к контенту /var/www/html
+</Directory>
+
 <Directory "/var/www/html/admin">
     Require all denied   #запретить доступ к админской директории всем
+    #Require ip 192.168.1.79 203.0.1.113   #разрешить доступ к админской директории только с определенных ip, можно указать диапазон
 </Directory>
-    
-</Directory>
+
+<Files "*.txt">
+    Require all denied   #запретить доступ к txt-файлам
+</Files>
   
+sudo htpasswd -c /etc/httpd/passwords aaron   #c=create, создать файл-пароль для юзера aaron
+sudo htpasswd /etc/httpd/passwords john   #без опции "c" команда добавит новую запись в уже созданный файл-пароль
+sudo htpasswd -D /etc/httpd/passwords john   #D=delete, удалить запись о пользователе john
+
+<Directory "/var/www/html/admin">
+    AuthType Basic   #задаем настройки авторизации
+    AuthBasicProvider file
+    AuthName "Secret admin page"
+    AuthUserFile /etc/httpd/passwords
+    Require valid-user
+</Directory>
