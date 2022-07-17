@@ -3,6 +3,7 @@ sudo firewall-cmd --add-service=http   #добавляем правило в FW
 sudo firewall-cmd --add-service=https   #добавляем правило в FW
 sudo firewall-cmd --runtime-to-permanent
 sudo dnf install mod_ssl   #ставим для настройки https
+httpd -M | grep ssl   #проверить список модулей
 sudo systemctl enable --now httpd   #включаем
 man httpd.conf   #ман по конфигу апаче
 sudo vim /etc/httpd/conf/httpd.conf   #главный конфиг
