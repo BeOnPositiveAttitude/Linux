@@ -1,0 +1,26 @@
+sudo dnf install docker   #ставим podman
+sudo vim /etc/containers/registries.conf   #конфиг
+unqualified-search-registries   #комментируем строку
+unqualified-search-registries = ["docker.io"]
+sudo touch /etc/containers/nodocker   #создаем файл, чтобы не появлялось варнингов про podman
+docker --help   #справка
+docker rm --help   #справка по определенной команде
+docker search nginx   #поиск образа
+docker pull docker.io/library/nginx   #пулим образ (latest)
+docker pull docker.io/library/nginx:1.20.2   #пулим образ определенной версии
+docker images   #смотреть загруженные образы
+docker rmi nginx:1.20.2   #удалить образ
+docker rmi image_id   #или по id образа
+docker rmi --force image_id   #удалить образ, даже если на этом образе крутится контейнер
+docker run nginx   #запустить контейнер
+docker start   #запустить контейнер, который был до этого остановлен
+docker stop container_name   #остановить контейнер
+docker run -d nginx   #d=detach, запустить контейнер и освободить command prompt для дальнейшего ввода
+docker ps   #смотреть запущенные контейнеры
+docker ps --all   #смотреть все контейнеры
+docker rm container_name   #удалить контейнер
+docker rm --force container_name   #удалить контейнер, даже если он запущен
+docker run -d -p 8080:80 --name mywebserver nginx   #задать имя контейнеру, p=port, тот кто подключиться к нашему хосту на порт 8080 
+# будет направлен на порт 80 контейнера nginx
+nc localhost 8080   #nc=netcat, проверить подключение на порт 8080
+GET /   #внутри nc запрашиваем корень сайта
