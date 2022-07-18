@@ -1,0 +1,12 @@
+sudo dnf install mariadb-server   #ставим
+sudo systemctl enable --now mariadb.service   #запускаем
+sudo firewall-cmd --add-service=mysql --permanent   #правило в FW
+mysql -u root   #войти как супер-админ в СУБД mysql/mariadb (первоначально без пароля)
+exit   #выйти
+mysql_secure_installation   #мастер усиления защиты СУБД, задать пароль для root и т.д.
+mysql -u root -p   #войти как супер-админ в СУБД mysql/mariadb с указанием созданного в мастере пароля
+cat /etc/my.cnf   #конфиг mariadb
+sudo vim /etc/my.cnf.d/mariadb-server.cnf   #конфиг mariadb
+sudo vim /etc/my.cnf.d/mysql-server.cnf   #конфиг mysql
+datadir=/path/to/datadir   #папка хранения файлов БД
+bind-address 10.0.0.5   #принимать подключения только с указанной машины
