@@ -9,4 +9,5 @@ cat /etc/my.cnf   #конфиг mariadb
 sudo vim /etc/my.cnf.d/mariadb-server.cnf   #конфиг mariadb
 sudo vim /etc/my.cnf.d/mysql-server.cnf   #конфиг mysql
 datadir=/path/to/datadir   #папка хранения файлов БД
+port=3308   #изменить порт для подключений
 bind-address 10.0.0.5   #принимать подключения только с определенного интерфейса, 0.0.0.0 = со всех интерфейсов
