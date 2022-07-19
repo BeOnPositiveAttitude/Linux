@@ -1,0 +1,20 @@
+sudo dnf install libvirt qemu-kvm   #ставим пакеты
+vim testmachine.xml   #создаем файл с описанием нашей ВМ
+<domain type="qemu">   #domain=VM
+  <name>TestMachine</name>
+  <memory unit="GiB"></memory>
+  <vcpu>1</vcpu>
+  <os>
+    <type arch='x86_64'>hvm</type>
+  </os>
+</domain>
+
+virsh define testmachine.xml   #создать ВМ из xml
+virsh help   #справка
+virsh list   #список активных ВМ
+virsh list --all   #список всех ВМ
+virsh start TestMachine   #запуск ВМ
+virsh reboot TestMachine   #мягкий перезапуск ВМ
+virsh reset TestMachine   #жесткий перезапуск ВМ
+virsh shutdown TestMachine   #мягкое выключение ВМ
+virsh destroy TestMachine   #жесткое выключение ВМ
