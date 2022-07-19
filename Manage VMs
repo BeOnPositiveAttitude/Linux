@@ -10,11 +10,20 @@ vim testmachine.xml   #создаем файл с описанием нашей 
 </domain>
 
 virsh define testmachine.xml   #создать ВМ из xml
+virsh undefine TestMachine   #удалить ВМ, диски при этом останутся, данные сохранятся
+virsh undefine --remove-all-storage TestMachine   #удалить ВМ, включая диски
 virsh help   #справка
+virsh help undefine   #справка по конкретной команде
 virsh list   #список активных ВМ
 virsh list --all   #список всех ВМ
 virsh start TestMachine   #запуск ВМ
 virsh reboot TestMachine   #мягкий перезапуск ВМ
 virsh reset TestMachine   #жесткий перезапуск ВМ
 virsh shutdown TestMachine   #мягкое выключение ВМ
-virsh destroy TestMachine   #жесткое выключение ВМ
+virsh destroy TestMachine   #жесткое выключение ВМ, не удаляет ВМ
+virsh autostart TestMachine   #автоматически включать ВМ при включении физического хоста
+virsh autostart --disable TestMachine   #отключить автостарт ВМ
+virsh dominfo TestMachine   #dominfo=domain_info, смотреть характеристики ВМ
+virsh setvcpus TestMachine 2 --config --maximum   #изменить максимально возможное количество vcpu для ВМ
+virsh setvcpus TestMachine 2 --config   #изменить количество vcpu для ВМ
+virsh setmaxmem TestMachine 2048 --config   #изменить максимально возможное количество ram для ВМ
