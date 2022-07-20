@@ -1,0 +1,9 @@
+swapon --show   #смотреть используется ли свап в системе
+sudo mkswap /dev/vdb3   #разметить раздел по свап
+sudo swapon --verbose /dev/vdb3   #включить свап-раздел и вывести детали
+sudo swapoff /dev/vdb3   #выключить свап-раздел
+sudo dd if=/dev/zero of=/swap bs=1M count=128   #создать файл под свап размером 128 Мб забитый нулями
+sudo dd if=/dev/zero of=/swap bs=1M count=2048 status=progress   #создать файл под свап размером 2048 Мб забитый нулями и показать статус выполнения команды
+sudo chmod 600 /swap   #дать права только root на этот свап-файл
+sudo mkswap /swap   #создать свап из файла
+sudo swapon --verbose /swap   #включить свап-файл и вывести детали
