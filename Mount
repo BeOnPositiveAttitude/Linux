@@ -4,3 +4,9 @@ sudo mkdir /mybackups
 sudo vim /etc/fstab   
 /dev/mapper/cs-root   /   xfs   defaults   0 0   #defaults - опции монтирования, первый 0 - должна ли утилита dump делать backup этой ФС, 
 # 0=disabled, 1=enabled, второй 0 - что делать в случае повреждения ФС, 0=никогда_не_сканировать
+
+# после внесения изменений в /etc/fstab необходимо дать команду sudo systemctl daemon-reload для применения изменений
+man fstab   #мануал
+/dev/mapper/cs-swap   none   swap   defaults   0 0   #none - означает не монтировать никуда, т.к. это свап
+# в fstab лучше использовать UUID, т.к. подключение дисков к мат.плате может и поменяться
+blkid   #смотреть UUID разделов
