@@ -1,0 +1,15 @@
+sudo mkfs.xfs /dev/sdb1   #создать ФС xfs
+sudo mkfs.ext4 /dev/sdb1   #создать ФС ext4
+man mkfs.xfs   #мануал
+man mkfs.ext4   #мануал
+sudo mkfs.xfs -L "BackupVolume" /dev/sdb1   #L=label, создать ФС с названием
+# команда mkfs.xfs без каких-либо опция выведет короткую справку о возможных вариантах использования
+sudo mkfs.xfs -i size=512 /dev/sdb1   #i=inode, создать ФС xfs с указанием размера inode
+sudo mkfs.xfs -i size=512 -L "BackupVolume" /dev/sdb1   #создать ФС xfs, комбо параметров
+# xfs и двойной Tab покажет нам возможные утилиты для xfs
+sudo xfs_admin -l /dev/sdb1   #смотреть label партиции, именно маленькая l в этом случае
+sudo xfs_admin -L "FirstFS" /dev/sdb1   #задать новый label
+
+sudo mkfs.ext4 -L "BackupVolume" -N 500000 /dev/sdb2   #N=number-of-inodes, создать ФС с указанием количество inode
+sudo tune2fs -l /dev/sdb2   #l=list-attributes, смотреть характеристики раздела на ext4
+sudo tune2fs -L "SecondFS" /dev/sdb2   #L=label, задать метку
