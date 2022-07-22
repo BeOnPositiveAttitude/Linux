@@ -1,0 +1,6 @@
+sudo mount /dev/vdb1 /mnt   #смонтировать раздел
+sudo umount /mnt   #отмонтировать
+sudo mkdir /mybackups
+sudo vim /etc/fstab   
+/dev/mapper/cs-root   /   xfs   defaults   0 0   #defaults - опции монтирования, первый 0 - должна ли утилита dump делать backup этой ФС, 
+# 0=disabled, 1=enabled, второй 0 - что делать в случае повреждения ФС, 0=никогда_не_сканировать
