@@ -1,0 +1,27 @@
+sudo dnf install autofs   #установка
+sudo systemctl enable --now autofs.service   #включаем
+sudo dnf install nfs-utils   #ставим пакеты для работы с nfs
+sudo systemctl enable --now nfs-server.service   #включаем
+sudo vim /etc/exports   #файл где прописываются пути до папок, которые будут расшарены по сети
+/etc 127.0.0.1(ro)   #каталог /etc будет доступен только для локального хоста и только на чтение
+sudo systemctl reload nfs-server.service   #применяем новую конфигурацию
+
+sudo vim /etc/auto.master   #файл с настройками автомонтирования
+/shares /etc/auto.shares --timeout=400   #автоматически монтировать каталог /shares, если он не существует, autofs его создаст автоматически,
+# /etc/auto.shares файл с опциями монтирования этого каталога, --timeout - время в секундах, через которое каталог будет отмонтирован, дефолтно 300 с
+
+sudo vim /etc/auto.shares   #создаем этот файл
+mynetworkshare -fstype=auto 127.0.0.1:/etc   #итоговый каталог монтирования будет /shares/mynetworkshare, -fstype=auto означает автоматически 
+# определить тип ФС, можно указать например -fstype=nfs4
+mynetworkshare -fstype=nfs4,ro nfs1.example.com:/etc   #можно задать другие опции монтирования, например только чтение, вместо ip указать fqdn
+myext4files -fstype=auto :/dev/vdb2   #ip может быть пропущен, в случае если нужно монтировать диск с локального хоста
+
+sudo systemctl reload autofs   #применяем новую конфигурацию
+
+# в случае если нас не устраивает монтирование через родительский каталог /shares и мы хотим монтировать в /mynetworkshare, нужно сделать так
+sudo vim /etc/auto.master   #файл с настройками автомонтирования
+/- /etc/auto.shares --timeout=400   #тире вместо shares означает монтировать сразу с корня
+# но также нужно будет отредактировать файл /etc/auto.shares
+sudo vim /etc/auto.shares
+/mynetworkshare -fstype=auto 127.0.0.1:/etc   #теперь уже должен быть абсолютный путь, а не относительный
+/localfiles/myext4files -fstype=auto :/dev/vdb2   #и здесь тоже
