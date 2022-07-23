@@ -1,4 +1,7 @@
 sudo mount /dev/vdb1 /mnt   #смонтировать раздел
+sudo mount -o ro /dev/vdb2 /mnt   #o=options, смонтировать раздел только для чтения
+sudo mount -o ro,noexec,nosuid /dev/vdb2 /mnt   #o=options, смонтировать раздел только для чтения, нельзя исполнять файлы и назначать им suid
+sudo mount -o remount,rw,noexec,nosuid /dev/vdb2 /mnt   #перемонтировать раздел с новыми опциями монтирования
 sudo umount /mnt   #отмонтировать
 sudo mkdir /mybackups
 sudo vim /etc/fstab   
@@ -10,3 +13,16 @@ man fstab   #мануал
 /dev/mapper/cs-swap   none   swap   defaults   0 0   #none - означает не монтировать никуда, т.к. это свап
 # в fstab лучше использовать UUID, т.к. подключение дисков к мат.плате может и поменяться
 blkid   #смотреть UUID разделов
+
+findmnt   #смотреть что смонтировано и опции монтирования
+findmnt -t xfs   #смотреть маунты только для ФС xfs
+findmnt -t xfs,ext4   #смотреть маунты для ФС xfs и ext4
+
+# перечисленные выше опции монтирования одинаковые для любой ФС, однако существуют опции относящиеся только к определенной ФС
+# чтобы посмотреть такие опции восользуемся man
+man xfs   #смотреть опции для ФС xfs
+sudo umount /dev/vdb1
+sudo mount -o allocsize=32K /dev/vdb1 /mybackups   #опция allocsize доступна только для xfs
+
+sudo vim /etc/fstab   
+/dev/vdb1   /mybackups   xfs   ro,noexec   0 0   #в файле fstab вместо defaults опций можно использовать нужные нам
