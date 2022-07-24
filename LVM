@@ -1,0 +1,27 @@
+sudo dnf install lvm2   #если еще не установлен в системе
+sudo lvmdiskscan   #сканировать систему на наличие lvm-дисков
+sudo pvcreate /dev/sdc /dev/sdd   #создать два PV
+sudo pvs   #смотреть созданные PV
+sudo vgcreate my_volume /dev/sdc /dev/sdd   #создать VG из двух PV
+sudo pvcreate /dev/sde   #создать дополнительный PV для расширения нашей VG
+sudo vgextend my_volume /dev/sde   #расширить нашу VG
+sudo vgs   #смотреть созданные VG
+sudo vgreduce my_volume /dev/sde   #уменьшить нашу VG за счет выкидывания PV=/dev/sde
+sudo pvremove /dev/sde   #удалить PV
+sudo lvcreate --size 2G --name partition1 my_volume   #создать LV с именем partition1 в VG=my_volume
+sudo lvcreate --size 6G --name partition2 my_volume   #создаем второй LV
+sudo lvs   #смотреть LV
+
+# PE - physical extents, допустим есть два физических диска по 4Мб и мы объединил их в одну VG размером 8Mб, создали там LV
+# и хотим записать файл размером 8Мб, система будет думать что мы пишем на один единый диск размером 8Мб, но физически это не так
+# вот для чего нужен размер PE, мы можем указать размер PE=4Мб и файл размажется на два диска по 4Мб
+
+sudo lvresize --extents 100%VG my_volume/partition1   #расширить LV=partition1 на все extents в VG
+sudo lvresize --size 2G my_volume/partition1   #уменьшить размер LV до 2Гб, при этом будет предупреждение, что все данные будут потеряны
+sudo lvdisplay   #смотреть детали всех LV
+sudo mkfs.xfs /dev/my_volume/partition1   #создать ФС на LV
+
+# команда lvresize меняет только размер LV, при этом размер ФС остается неизменным!!!
+sudo lvresize --resizefs --size 3G my_volume/partition1   #расширить размер LV и сразу же размер ФС на нем
+
+man lvm   #справка
