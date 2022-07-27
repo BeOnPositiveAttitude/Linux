@@ -11,6 +11,7 @@ sudo pvremove /dev/sde   #удалить PV
 sudo lvcreate --size 2G --name partition1 my_volume   #создать LV с именем partition1 в VG=my_volume
 sudo lvcreate --size 6G --name partition2 my_volume   #создаем второй LV
 sudo lvs   #смотреть LV
+sudo lvremove volume1/smalldata   #удалить LV smalldata из VG volume1
 
 # PE - physical extents, допустим есть два физических диска по 4Мб и мы объединил их в одну VG размером 8Mб, создали там LV
 # и хотим записать файл размером 8Мб, система будет думать что мы пишем на один единый диск размером 8Мб, но физически это не так
