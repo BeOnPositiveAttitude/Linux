@@ -1,0 +1,10 @@
+# RAID5 - минимум три диска, один диск может быть потерян, данные о четности размазываются по всем дискам
+# RAID6 - минимум четыре диска, может быть потеряно два диска
+# RAID10 - два зеркала объединенные в страйп
+# mdadm - утилита для управления RAID, multiple devices administration
+sudo mdadm --create /dev/md0 --level=0 --raid-devices=3 /dev/vdc /dev/vdd /dev/vde   #создать RAID0 из трех дисков
+sudo mkfs.ext4 /dev/md0
+sudo mdadm --stop /dev/md0   #остановить RAID
+# при загрузке ОС она ищет на дисках информацию (superblocks) о принадлежности к RAID и пытается пересобрать их в произвольном порядке 
+# в устройство например /dev/md127. Чтобы избежать этого мы можем удалить инфу о суперблоках командой:
+sudo mdadm --zero-superblock /dev/vdc /dev/vdd /dev/vde
