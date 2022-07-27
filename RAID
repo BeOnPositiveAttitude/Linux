@@ -8,3 +8,7 @@ sudo mdadm --stop /dev/md0   #остановить RAID
 # при загрузке ОС она ищет на дисках информацию (superblocks) о принадлежности к RAID и пытается пересобрать их в произвольном порядке 
 # в устройство например /dev/md127. Чтобы избежать этого мы можем удалить инфу о суперблоках командой:
 sudo mdadm --zero-superblock /dev/vdc /dev/vdd /dev/vde
+sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/vdc /dev/vdd --spare-devices=1 /dev/vdd   #создать RAID1 из двух дисков с одной спарой
+sudo mdadm --manage /dev/md0 --add /dev/vde   #добавить в существующий RAID1 из двух дисков третий активный диск
+sudo mdadm --manage /dev/md0 --remove /dev/vde   #удалить диск из RAID
+cat /proc/mdstat   #смотреть инфу о RAID-ах
