@@ -1,0 +1,10 @@
+sudo cryptsetup --verify-passphrase open --type plain /dev/vde mysecuredisk   #verify-passphrase - дважды запросить пароль при шифровании,
+# open - открыть устройство для чтения и записи зашифрованных данных, type - тип шифрования, mysecuredisk - произвольное имя, под которым устройство
+# будет отображаться в /dev/mapper/
+# в итоге будет создан "фейковый" диск /dev/mapper/mysecuredisk, физической основой для него будет /dev/vde
+sudo mkfs.xfs /dev/mapper/mysecuredisk   #создать ФС на шифрованном диске
+sudo cryptsetup close mysecuredisk   #закрыть зашифрованный диск
+sudo cryptsetup luksFormat /dev/vde   #создать шифрованный диск с типом шифрования LUKS
+sudo cryptsetup luksFormat /dev/vde2   #создать шифрованный раздел с типом шифрования LUKS
+sudo cryptsetup luksChangeKey /dev/vde   #изменить ключ шифрования
+sudo cryptsetup open mysecuredisk   #открыть зашифрованный диск
