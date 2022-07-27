@@ -7,6 +7,7 @@ sudo pvcreate /dev/sde   #создать дополнительный PV для 
 sudo vgextend my_volume /dev/sde   #расширить нашу VG
 sudo vgs   #смотреть созданные VG
 sudo vgreduce my_volume /dev/sde   #уменьшить нашу VG за счет выкидывания PV=/dev/sde
+sudo vgremove --force my_volume   #удалить VG
 sudo pvremove /dev/sde   #удалить PV
 sudo lvcreate --size 2G --name partition1 my_volume   #создать LV с именем partition1 в VG=my_volume
 sudo lvcreate --size 6G --name partition2 my_volume   #создаем второй LV
