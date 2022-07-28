@@ -1,0 +1,13 @@
+echo "This is the file content" > examplefile
+sudo chown adm:ftp examplefile
+sudo setfacl --modify user:aaron:rw examplefile   #setfacl=set_file_ACL, установить индивидуальные права для юзера
+# наличие символа "+" в permissions файла ознавает, что применен ACL
+getfacl examplefile   #смотреть ACL
+
+# mask нужна для ограничения возможного скоупа выдаваемых прав на файл, например можно только читать файл и не более, независимо от выданных юзеру прав
+sudo setfacl --modify mask:r examplefile   #сделать маску только на чтение
+# после наложения маски, в выводе getfacl появится поле "effective" отражающее результирующие права на файл
+sudo setfacl --modify group:wheel:rw examplefile   #дать права группе
+sudo setfacl --modify user:aaron:--- examplefile   #запретить юзеру что-либо делать с файлом
+sudo setfacl --remove user:aaron examplefile   #удалить ACL юзера на файл
+sudo setfacl --remove group:wheel examplefile   #удалить ACL группы на файл
