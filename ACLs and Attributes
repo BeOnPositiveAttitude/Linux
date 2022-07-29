@@ -1,6 +1,6 @@
 echo "This is the file content" > examplefile
 sudo chown adm:ftp examplefile
-sudo setfacl --modify user:aaron:rw examplefile   #setfacl=set_file_ACL, установить индивидуальные права для юзера
+sudo setfacl --modify user:aaron:rw examplefile   #setfacl=set_file_ACL, установить индивидуальные права для юзера, вместо --modify можно писать -m
 # наличие символа "+" в permissions файла ознавает, что применен ACL
 getfacl examplefile   #смотреть ACL
 
@@ -11,3 +11,13 @@ sudo setfacl --modify group:wheel:rw examplefile   #дать права груп
 sudo setfacl --modify user:aaron:--- examplefile   #запретить юзеру что-либо делать с файлом
 sudo setfacl --remove user:aaron examplefile   #удалить ACL юзера на файл
 sudo setfacl --remove group:wheel examplefile   #удалить ACL группы на файл
+sudo setfacl --recursive -m user:aaron:rwx dir1/   #поменять ACL рекурсивно на папку и все вложенные файлы
+sudo setfacl --recursive --remove user:aaron dir1/   #рекурсивно удалить ACL для папки и всех вложенных файлов
+
+echo "This is old content" > newfile
+sudo chattr +a newfile   #a=append, возможно только добавлять данные в файл, но не редактировать существующие данные
+sudo chattr -a newfile   #удалить аттрибут
+sudo chattr +i newfile   #i=immutable, нельзя менять содержимое файла
+# файл с аттрибутом immutable нельзя удалить даже под рутом
+lsattr newfile   #смотреть назначенные аттрибуты
+man chattr   #смотреть мануал
