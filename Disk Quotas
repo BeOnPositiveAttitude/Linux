@@ -1,0 +1,25 @@
+sudo dnf install quota   
+# редактируем sudo vim /etc/fstab
+/dev/vdb1 /mybackups xfs defaults,usrquota,grpquota 0 2   #включаем квоты на юзера и группы
+sudo systemctl reboot
+# настройка квоты для xfs на этом закончена
+
+# для ext4 необходимо выполнить еще две команды
+sudo quotacheck --create-files --user --group /dev/vdb2   #появится два файла aquota.group и aquota.user
+# в этих файлах указывается сколько места использует тот или иной юзер или группа
+sudo quotaon /mnt   #включаем квоту для каталога
+
+# вернемся к xfs
+sudo mkdir /mybackups/aaron
+sudo chown aaron:aaron /mybackups/aaron
+fallocate --length 100M /mybackups/aaron/100Mfile   #создать файл размером 100Мб
+sudo edquota --user aaron   #добавить квоту для юзера
+# blocks - размер занятого юзером места в Кб, первые soft и hard - лимиты на использование дискового пространства
+# вторые soft и hard - лимиты на количество inodes, т.е. сколько файлов и папок может создать юзер
+sudo quota --user aaron   #смотреть квоту юзера
+# blocks - символ "*" рядом со значением означает, что юзер превысил квоту, grace в днях дает последний шанс исправиться, 
+# если в пределах grace-периода он не удалит файлы, то уже ничего не сможет записать на диск
+sudo quota --edit-period   #редактировать grace-период на размер дискового пространства или на количество inodes
+
+sudo edquota --group adm   #редактировать квоту для группы
+sudo quota --group adm   #смотреть квоту для группы
