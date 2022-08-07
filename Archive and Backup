@@ -21,6 +21,7 @@ gunzip -l file1.gz   #l=list, смотреть содержимое архива
 zip archive.zip file1   #упаковать файл в формате .zip
 zip -r archive.zip Pictures/   #r=recursively, упаковать папку
 unzip archive.zip   #распаковать архив
+unzip archive.zip -d /tmp/   #распаковать в определенную папку
 tar -czf archive.tar.gz file1   #объединяем tar и gzip для создания архива
 tar -cjf archive.tar.bz2 file1   #объединяем tar и bzip2 для создания архива
 tar -cJf archive.tar.xz file1   #объединяем tar и xz для создания архива
