@@ -13,6 +13,8 @@ sudo usermod -l jane john   #l=login, переименовать юзера john
 sudo usermod -s /bin/othershell jane   #s=shell, сменить шелл для юзера jane
 sudo usermod -L jane   #L=lock, залочить аккаунт юзера
 sudo usermod -U jane   #U=unlock, разлочить аккаунт юзера
+sudo passwd -l user1   #залочить
+sudo passwd -u user2   #разлочить
 sudo usermod -e 2021-12-10 jane   #e=expiredate, YY-MM-DD, установить дату экспирации аккаунта
 sudo usermod -e "" jane   #для удаления даты экспирации аккаунта мы посылаем пустую строку
 sudo chage -d 0 jane   #d=lastday, при следующем логине юзера попросят сменить пароль, т.к. он устарел
