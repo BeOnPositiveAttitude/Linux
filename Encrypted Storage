@@ -8,3 +8,4 @@ sudo cryptsetup luksFormat /dev/vde   #создать шифрованный д�
 sudo cryptsetup luksFormat /dev/vde2   #создать шифрованный раздел с типом шифрования LUKS
 sudo cryptsetup luksChangeKey /dev/vde   #изменить ключ шифрования
 sudo cryptsetup open mysecuredisk   #открыть зашифрованный диск
+sudo cryptsetup open /dev/vde mysecuredisk   #открыть зашифрованный диск
