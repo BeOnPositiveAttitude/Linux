@@ -27,3 +27,4 @@ find -perm /664   #искать файлы у которых есть какие
 sudo find /var/ -name pets -type d   #искать только директории с именем pets
 sudo find /usr -size +5M -size -10M -type f > /home/bob/size.txt   #искать файлы размером от 5 до 10 Мб
 sudo find /opt/findme/ -perm -u=x -type f > /opt/foundthem.txt   #искать именно файлы (не папки), у которых у владельца есть как минимум права на execute
+sudo find /opt/findme/ -not -perm /o=r   #искать файлы у которых для others нет разрешения на чтение
