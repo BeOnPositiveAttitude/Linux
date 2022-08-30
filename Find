@@ -30,3 +30,7 @@ sudo find /opt/findme/ -perm -u=x -type f > /opt/foundthem.txt   #искать �
 sudo find /opt/findme/ -not -perm /o=r   #искать файлы у которых для others нет разрешения на чтение
 find /opt/findme/ -perm /4000 -exec rm -f {} \;   #искать файлы с установленным SUID и затем удалить их все
 find /opt/findme/ -type f -size +1k -exec cp "{}" /opt/ \;   #искать файлы размером более 1 Кб и далее скопировать их в /opt
+sudo find /home/bob/collection/ -type f -name "*.txt" -exec mv {} /opt/textfiles/ \;   #искать txt-файлы и переместить в папку 
+sudo find /home/bob/collection/ -type f -user adm -exec cp {} /opt/admfiles/  \;   #искать файлы, у которых владелец adm и копировать в папку
+sudo find ./collection/ -mmin -60 -type f -exec cp --target-directory=/opt/oldfiles/ {} +\;   #искать файлы, которые были изменены менее часа назад
+# и копировать в папку
