@@ -1,6 +1,7 @@
 ls -Z   #смотреть контекст SELinux для файла
 # структура контекста SELinux - user:role:type:level
 ps axZ   #смотреть контекст SELinux для процессов
+sudo ps -Z -p 2   #смотреть контекст процесса с pid=2
 id -Z   #смотреть контекст SELinux для текущего юзера
 sudo semanage login -l   #смотреть маппинг юзера и SELinux
 sudo semanage user -l   #смотреть маппинг юзеров в системе и SELinux
