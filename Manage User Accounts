@@ -18,6 +18,7 @@ sudo passwd -u user2   #разлочить
 sudo usermod -e 2021-12-10 jane   #e=expiredate, YY-MM-DD, установить дату экспирации аккаунта
 sudo usermod -e "" jane   #для удаления даты экспирации аккаунта мы посылаем пустую строку
 sudo chage -d 0 jane   #d=lastday, при следующем логине юзера попросят сменить пароль, т.к. он устарел
+sudo passwd -e david   #принудить юзера сменить пароль при следующем логине
 sudo chage -d -1 jane   #для отмены экспирации пароля посылаем -1
 sudo chage -M 30 jane   #M=maxdays, менять пароль каждые 30 дней для юзера jane
 sudo chage -M -1 jane   #чтобы пароль никогда не протухал
