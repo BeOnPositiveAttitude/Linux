@@ -23,3 +23,4 @@ sudo chage -M 30 jane   #M=maxdays, менять пароль каждые 30 д
 sudo chage -M -1 jane   #чтобы пароль никогда не протухал
 sudo chage -l jane   #l=list, смотреть дату экспирации УЗ
 sudo chage -W 2 jane   #W=warning-days, установить варнинг за два дня до истечения срока действия пароля
+sudo useradd -p $(openssl passwd -1 examPassed) jane   #создать юзера и сразу задать пароль
