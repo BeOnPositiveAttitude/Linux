@@ -8,6 +8,7 @@ sudo dnf config-manager --add-repo https://repo_url   #добавить стор
 sudo rm /etc/yum.repos.d/docker-ce.repo   #удалить third-party репозиторий из системы
 sudo dnf search 'web server'   #искать название пакета по заданным критериям
 sudo dnf info nginx   #смотреть информацию о пакете
+rpm -ql rhel-system-roles   #смотреть список файлов установленного пакета
 sudo dnf reinstall nginx   #переустановить пакет, если например мы случайно удалили какой-нибудь файл
 sudo dnf install nginx   #установить пакет
 sudo dnf remove nginx   #удалить пакет
