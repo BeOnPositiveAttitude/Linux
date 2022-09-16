@@ -3,3 +3,4 @@ sudo gpasswd -a trinity wheel   #добавить тринити в группу
 sudo visudo   #для редактирования файла /etc/sudoers
 %wheel ALL=(ALL) ALL   #user/group host=(run_as_user) command_list, % означает группу
 sudo -u trinity ls /home/trinity   #запустить команду от лица юзера тринити
+sudo -lU user1   #смотреть какие sudo-команды может запускать юзер1
