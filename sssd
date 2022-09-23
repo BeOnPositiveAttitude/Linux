@@ -1,0 +1,1 @@
+systemctl stop sssd && rm -rf /var/lib/sss/db/* && systemctl restart sssd   #сбросить кэш sssd, только из под root
