@@ -27,4 +27,6 @@ sudo mkfs.xfs /dev/my_volume/partition1   #создать ФС на LV
 # команда lvresize меняет только размер LV, при этом размер ФС остается неизменным!!!
 sudo lvresize --resizefs --size 3G my_volume/partition1   #расширить размер LV и сразу же размер ФС на нем
 
+lvextend -l +50%FREE -r /dev/alt/root   #l - размер в extents, L - размер в Мб\Гб, r - сразу сделать ресайз ФС в одной команде
+
 man lvm   #справка
