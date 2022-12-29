@@ -15,3 +15,4 @@ sort -duf values.txt   #d=dictionary-order, consider only blanks and alphanumeri
 diff file1 file2   #сравнить два файла
 diff -c file1 file2   #сравнить два файла, c=context
 sdiff file1 file2   #сравнить два файла, откроются в более удобном side-by-side формате
+cat query.log | awk '{ print $6 }' | sed 's/.\{6\}$//' | sort | uniq -c | sort   #awk вырезат шестой столбец, sed удаляет последние 6 символов, сортирует
