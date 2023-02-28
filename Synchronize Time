@@ -3,6 +3,7 @@ timedatectl   #смотреть статус синхронизации врем
 timedatectl show   #смотреть статус синхронизации времени
 timedatectl list-timezones   #смотреть список доступных тайм-зон
 sudo timedatectl set-timezone America/New_York   #установить тайм-зону
+timedatectl set-time '2023-02-28 10:59:00'   #установить дату и время
 sudo dnf install chrony   #ставим хрони
 sudo systemctl enable --now chronyd.service   #включаем
 sudo timedatectl set-ntp true   #включить NTP
