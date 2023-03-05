@@ -18,3 +18,7 @@ sudo ip a add 10.0.0.50/24 dev eth1   #добавить айпишник на с
 # порты в состоянии LISTEN = открытые
 sudo hostnamectl set-hostname dev-host01   #переименовать хост
 hostnamectl   #смотреть имя хоста
+
+nmcli con show   #смотреть подключения
+nmcli device status   #смотреть статус физических портов
+nmcli connection add type ethernet ifname enp0s8   #если есть физический порт и нужно добавить на него подключение
