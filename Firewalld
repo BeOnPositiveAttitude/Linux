@@ -14,3 +14,4 @@ firewall-cmd --get-active-zones   #смотреть активные зоны
 firewall-cmd --runtime-to-permanent   #записать все текущие (и возможно временные) правила в постоянные
 firewall-cmd --add-port=12345/tcp --permanent   #добавить правило на постоянной основе, но оно не включится сразу
 firewall-cmd --get-services   #смотреть полный список сервисов, которые можно добавить по имени, http, samba и т.д.
+firewall-cmd --reload   #после добавления правила с опцией --permanent firewalld нужно перезапустить
