@@ -1,0 +1,6 @@
+scp -P 9022 myfile username@hostname:   #на Ubuntu порт указывается в начале команды и через заглавную "P"
+
+ssh username@hostname -p 9022 "source .env && python3 script.py"   #подключиться к хосту по ssh и выполнить команду в ковычках, не "проваливаясь" при этом в ssh-сессию
+
+ssh -f -CqTnN -D 60046 username@hostname -p 9022   #проксировать соединение на удаленный хост, 60046 - рандомный порт, в настройках firefox включить SOCKS5, SOCKS Host = 127.0.0.1 и прописать порт 60046 
+
