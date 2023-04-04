@@ -16,3 +16,13 @@ diff file1 file2   #сравнить два файла
 diff -c file1 file2   #сравнить два файла, c=context
 sdiff file1 file2   #сравнить два файла, откроются в более удобном side-by-side формате
 cat query.log | awk '{ print $6 }' | sed 's/.\{6\}$//' | sort | uniq -c | sort   #awk вырезат шестой столбец, sed удаляет последние 6 символов, сортирует
+
+Записать строки в файл с помощью cat:
+
+```bash
+cat > myfile
+string1
+string2
+string3
+Ctrl+D
+```
