@@ -1,6 +1,6 @@
 Смотреть какой сейчас задан shell: `echo $SHELL`.
 
-Сменить shell: `chsh`.
+Сменить shell для юзера bob: `sudo chsh -s /bin/sh bob`.
 
 Задать переменную окружения на постоянной основе можно в файлах `~/.profile` или `~/.pam_environment`.
 
