@@ -1,5 +1,6 @@
 dnf check-upgrade   #смотреть для каких пакетов вышли обновления
 sudo dnf upgrade   #обновить пакеты
+sudo yum update telnet   #обновить определенный пакет
 sudo dnf repolist -v   #v=verbose, смотреть список настроенных в системе репозиториев
 sudo dnf repolist --all   #смотреть список всех доступных для добавления репозиториев от CentOS
 sudo dnf config-manager --enable powertools   #включить дополнительный репозиторий, powertools берется из вывода repolist --all
