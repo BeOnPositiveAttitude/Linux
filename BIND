@@ -57,5 +57,5 @@ dig @localhost example.com ANY   #выполняем с нашего bind для
 
 ```
 nameserver 192.168.1.100
-search     mycompany.com   #если мы выполним команду ping web, тогда автоматически будет добавлен домен mycompany.com
+search     mycompany.com prod.mycompany.com   #если мы выполним команду ping web (короткое имя), тогда будет выполнен поиск записи в доменах mycompany.com и prod.mycompany.com
 ```
