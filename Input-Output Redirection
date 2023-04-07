@@ -11,3 +11,6 @@ sendemail someone@example.com < emailcontent.txt   #передать текст 
 sort <<EOF
 bc <<<1+2+3+4   #shell-калькулятор, передать входные данные для вычисления, полезно в скриптах
 grep -v '^#' /etc/login.defs | sort | column -t   #искать строки НЕ начинающиеся с решетки, сортировать их в алфавитном порядке и далее выровнять по колонкам
+
+echo $SHELL | tee shell.txt   #запишет в файл shell.txt строку "/bin/bash" и в отличие от обычного перенаправления вывода еще и выведет строку на экран
+echo "This is the bash shell" | tee -a shell.txt   #дозаписать строку в файл, a=append
