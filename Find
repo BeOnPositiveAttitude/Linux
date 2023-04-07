@@ -34,3 +34,7 @@ sudo find /home/bob/collection/ -type f -name "*.txt" -exec mv {} /opt/textfiles
 sudo find /home/bob/collection/ -type f -user adm -exec cp {} /opt/admfiles/  \;   #искать файлы, у которых владелец adm и копировать в папку
 sudo find ./collection/ -mmin -60 -type f -exec cp --target-directory=/opt/oldfiles/ {} +\;   #искать файлы, которые были изменены менее часа назад
 # и копировать в папку
+
+Искать файл по имени: `locate City.txt`. 
+
+Перед этим стоит обновить БД: `updatedb`.
