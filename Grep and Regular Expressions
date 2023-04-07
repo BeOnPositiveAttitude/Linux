@@ -35,3 +35,4 @@ grep '3\>' /home/bob/shuffled.txt > /opt/filtered.txt   #искать строк
 
 grep -A1 Arsenal premier-league-table.txt   #отразит в результате поиска еще одну строку после строки Arsenal
 grep -B1 Arsenal premier-league-table.txt   #отразит в результате поиска еще одну строку перед строкой Arsenal
+grep -A1 -B1 Arsenal premier-league-table.txt   #отразит в результате поиска одну строку перед строкой Arsenal и строку после Arsenal, ну и сам Arsenal
