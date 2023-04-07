@@ -48,3 +48,5 @@ example.com.   TXT   "We can write anything in here!"   #TXT-запись мож
 sudo systemctl restart named.service
 dig @localhost example.com   #выполняем с нашего bind для проверки работы
 dig @localhost example.com ANY   #выполняем с нашего bind для проверки работы, инфа о всех записях
+
+Файл `/etc/nsswitch.conf` отвечает за приоритет при резолве dns-записей, по дефолту сначала ищет в `/etc/hosts`, потом на DNS-сервере.
