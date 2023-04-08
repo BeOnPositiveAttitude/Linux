@@ -21,3 +21,7 @@ target     prot opt source               destination
 
 Каждая цепочка (chain) имеет несколько правил внутри. Chain of rules.
 
+Каждое правило осуществляет проверку и принимает или отбрасывает пакет, основываясь на условии.
+
+<img src="screen1.png" width="600" height="200"><br>
+
