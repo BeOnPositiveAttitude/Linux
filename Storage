@@ -6,3 +6,5 @@ sudo fdisk --list /dev/sda   #смотреть инфу о разделах на
 sudo cfdisk /dev/sdb   #добавить новый диск в систему, cfdisk - аналог fdisk с псевдографическим интерфейсом
 # далее выбираем gpt (dos=mbr) => New => 8G => Free space => 2G => ... => Write => yes
 # Type позволяет выбрать тип раздела, swap или другой
+
+gdisk /dev/sdb   #GPT fdisk
