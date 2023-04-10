@@ -4,6 +4,8 @@ sudo dnf install nfs-utils   #ставим пакеты для работы с n
 sudo systemctl enable --now nfs-server.service   #включаем
 sudo vim /etc/exports   #файл где прописываются пути до папок, которые будут расшарены по сети
 /etc 127.0.0.1(ro)   #каталог /etc будет доступен только для локального хоста и только на чтение
+exportfs -a   #экспортировать все шары из файла /etc/exports
+exportfs -o 10.61.35.201:/software/repos   #экспортировать вручную, видимо разово, 10.61.35.201 - адрес клиента для которого открывается доступ к шаре
 sudo systemctl reload nfs-server.service   #применяем новую конфигурацию
 
 sudo vim /etc/auto.master   #файл с настройками автомонтирования
