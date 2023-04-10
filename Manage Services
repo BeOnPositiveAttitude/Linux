@@ -10,4 +10,4 @@ systemctl enable --now sshd.service   #добавить в автозапуск 
 systemctl disable --now sshd.service   #отключить автозапуск и сразу же остановить службу
 systemctl mask atd.service   #маскировать службу, это запрещает старт службы и добавление ее в автозапуск
 systemctl unmask atd.service   #убрать маскирование
-systemctl list-units --type service -all   #отобразит список всех service units в системе
+systemctl list-units --type service --all   #отобразит список всех service units в системе
