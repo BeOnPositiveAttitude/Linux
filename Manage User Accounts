@@ -5,6 +5,7 @@ cat /etc/login.defs   #смотреть настройки по умолчани
 sudo userdel john   #удалит юзера john, primary group - john, home-каталог при этом останется
 sudo userdel -r john   #r=remove, удалит юзера john, primary group - john и его home-каталог
 sudo useradd -s /bin/othershell -d /home/otherdirectory/ john   #s=shell, d=home-dir, задать особый шелл и хомяк при создании нового юзера
+sudo useradd -s /sbin/nologin jave   #создать юзера с non-interactive shell
 sudo useradd -u 1100 smith   #u=uid, задать вручную uid пользователя
 ls -ln /home   #n=numeric, отобразит владельца и группу в числовом формате, а не в именах
 sudo useradd --system sysacc   #добавить системного юзера, id будет меньше 1000, хомяк не создается для системного юзера
