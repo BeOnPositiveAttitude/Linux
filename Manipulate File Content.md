@@ -27,5 +27,8 @@ string3
 Ctrl+D
 ```
 
-Заменить только слово целиком: `sed 's/\<to\>/from/g' BSD.txt > BSD_REPLACE.txt`
-Удалить найденные слова: `sed '/software/d' BSD.txt > BSD_DELETE.txt`
+Заменить только слово to целиком: `sed 's/\<to\>/from/g' BSD.txt > BSD_REPLACE.txt`. Т.е. если будет слово "contributor", то не трогать.
+
+Заменить только слово "band" целиком: `sed 's/\band\b/is/g' /home/BSD.txt` . Еще один вариант замены слова целиком.
+
+Удалить строки с указанным словом: `sed '/software/d' BSD.txt > BSD_DELETE.txt`
