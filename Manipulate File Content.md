@@ -27,5 +27,5 @@ string3
 Ctrl+D
 ```
 
-sed 's/\<to\>/from/g' BSD.txt > BSD_REPLACE.txt
-sed '/software/d' BSD.txt > BSD_DELETE.txt
+Заменить только слово целиком: `sed 's/\<to\>/from/g' BSD.txt > BSD_REPLACE.txt`
+Удалить найденные слова: `sed '/software/d' BSD.txt > BSD_DELETE.txt`
