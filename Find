@@ -35,7 +35,7 @@ sudo find /home/bob/collection/ -type f -user adm -exec cp {} /opt/admfiles/  \;
 sudo find ./collection/ -mmin -60 -type f -exec cp --target-directory=/opt/oldfiles/ {} +\;   #искать файлы, которые были изменены менее часа назад
 # и копировать в папку
 
-find /home/usersdata -type f -user kirsty -exec cp -p --parent {} /media/ \;   #parent - сохранить структуру папок при копировании
+find /home/usersdata -type f -user kirsty -exec cp -p --parents {} /media/ \;   #parents - сохранить структуру папок при копировании
 
 Искать файл по имени: `locate City.txt`. 
 
