@@ -101,3 +101,15 @@ sudo htpasswd -D /etc/httpd/passwords john   #D=delete, удалить запи�
     AuthUserFile /etc/httpd/passwords
     Require valid-user
 </Directory>
+
+
+Добавить response headers в конфиг Apache /etc/httpd/conf/httpd.conf:
+
+Header set X-XSS-Protection "1; mode=block"
+Header always append X-Frame-Options SAMEORIGIN
+Header set X-Content-Type-Options nosniff
+
+Либо:
+Header always set X-XSS-Protection "1; mode=block"
+Header always set X-Frame-Options SAMEORIGIN
+Header always set X-Content-Type-Options nosniff
