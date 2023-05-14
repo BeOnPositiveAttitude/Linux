@@ -1,0 +1,4 @@
+gpg --import public_key.asc 
+gpg --import private_key.asc 
+gpg --encrypt --output encrypted_me.asc -r kodekloud@kodekloud.com encrypt_me.txt 
+gpg --decrypt --output decrypted_me.txt decrypt_me.asc 
