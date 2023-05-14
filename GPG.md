@@ -11,7 +11,7 @@ gpg --list-secret-keys
 
 Мой вариант: `gpg --encrypt --output encrypted_me.asc --recipient kodekloud@kodekloud.com encrypt_me.txt`.
 
-Либо то же самое, но короче: `gpg --encrypt -o encrypted_me.asc -r kodekloud@kodekloud.com encrypt_me.txt`.
+Либо то же самое, но короче: `gpg -e -o encrypted_me.asc -r kodekloud@kodekloud.com encrypt_me.txt`.
 
 Здесь параметр `--output` задает имя итогового зашифрованного файла, `--recipient` берется из вывода команды по листингу ключей, в конце указано имя файла, который нужно зашифровать.
 
