@@ -23,4 +23,6 @@ gpg --list-secret-keys
 
 Мой вариант: `gpg --decrypt --output decrypted_me.txt decrypt_me.asc`.
 
+Либо то же самое, но короче: `gpg -d -o decrypted_me.txt decrypt_me.asc`.
+
 Вариант из лабы: `gpg --decrypt decrypt_me.asc > decrypted_me.txt`.
