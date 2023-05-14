@@ -15,7 +15,7 @@ gpg --list-secret-keys
 
 Здесь параметр `--output` задает имя итогового зашифрованного файла, `--recipient` берется из вывода команды по листингу ключей, в конце указано имя файла, который нужно зашифровать.
 
-Вариант из лабы: `gpg --encrypt -r kodekloud@kodekloud.com --armor < encrypt_me.txt  -o encrypted_me.asc`
+Вариант из лабы: `gpg --encrypt -r kodekloud@kodekloud.com --armor < encrypt_me.txt  -o encrypted_me.asc`.
 
 Здесь параметр `--armor` означает вывод в текстовом формате.
 
