@@ -113,3 +113,14 @@ Header set X-Content-Type-Options nosniff
 Header always set X-XSS-Protection "1; mode=block"
 Header always set X-Frame-Options SAMEORIGIN
 Header always set X-Content-Type-Options nosniff
+
+Отключить отображение версии Apache. Идем в конфиг /etc/httpd/conf/httpd.conf и добавляем опции, если их нет:
+
+ServerTokens Prod
+ServerSignature Off
+
+Чтобы запретить листинг файлов в директории Apache:
+
+<Directory "/var/www/html">
+    Options Indexes FollowSymLinks   #удалить опцию Indexes или всю строку целиком
+</Directory>
