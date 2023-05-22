@@ -124,3 +124,19 @@ ServerSignature Off
 <Directory "/var/www/html">
     Options Indexes FollowSymLinks   #удалить опцию Indexes или всю строку целиком
 </Directory>
+
+Настройка редиректов в Apache. Создаем отдельный конфиг /etc/httpd/conf.d/main.conf:
+
+### Сначала редиректим с non-www на www 
+### 301 значит permanent redirect
+<VirtualHost *:5001>
+ServerName stapp03.stratos.xfusioncorp.com
+Redirect 301 / http://www.stapp03.stratos.xfusioncorp.com:5001/
+</VirtualHost>
+
+### Далее редиректим с /blog/ на /new/
+### 302 значит temporary redirect
+<VirtualHost *:5001>
+ServerName www.stapp03.stratos.xfusioncorp.com:5001/blog/
+Redirect 302 /blog/ http://www.stapp03.stratos.xfusioncorp.com:5001/news/
+</VirtualHost>
