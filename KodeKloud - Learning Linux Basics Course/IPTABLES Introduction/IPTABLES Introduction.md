@@ -2,6 +2,8 @@
 
 Установить iptables на CentOS: `sudo dnf install iptables-services`.
 
+Не забыть включить сервис: `systemctl enable --now iptables`.
+
 Смотреть правила iptables: `iptables -L`.
 
 ```bash
