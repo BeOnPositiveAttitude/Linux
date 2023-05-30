@@ -1,5 +1,7 @@
 Установить iptables на Ubuntu: `sudo apt install iptables`.
 
+Установить iptables на CentOS: `sudo dnf install iptables-services`.
+
 Смотреть правила iptables: `iptables -L`.
 
 ```bash
@@ -83,8 +85,4 @@ iptables -A INPUT -p tcp --dport 5432 -j DROP                      #дропат
 
 Блокировать любой входящий трафик: `iptables -A INPUT -j DROP`.
 
-Сохранить правила iptables на постоянной основе в RPM-based системе: `iptables-save > /etc/sysconfig/iptables`.
-
-Или из документации RedHat: `/sbin/service iptables save`.
-
-This executes the `iptables` initscript, which runs the `/sbin/iptables-save` program and writes the current iptables configuration to `/etc/sysconfig/iptables`. The existing `/etc/sysconfig/iptables` file is saved as `/etc/sysconfig/iptables.save`. 
+Сохранить правила iptables на постоянной основе в RPM-based системе: `service iptables save`.
