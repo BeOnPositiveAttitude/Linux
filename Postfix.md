@@ -53,6 +53,7 @@ cd Maildir/
 ls
 cat new/1685177380.V1700057I52b0b4fM114681.stmail01.stratos.xfusioncorp.com 
 
+# Тело письма:
 Return-Path: <mariyam@stratos.xfusioncorp.com>
 X-Original-To: mariyam@stratos.xfusioncorp.com
 Delivered-To: mariyam@stratos.xfusioncorp.com
