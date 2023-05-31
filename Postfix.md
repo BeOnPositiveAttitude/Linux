@@ -3,8 +3,8 @@
 Редактируем конфиг: `vi /etc/postfix/main.cf`.
 
 ```bash
-myhostname = stmail01.example.com   #FQDN нашего хоста
-mydomain = example.com
+myhostname = stmail01.stratos.xfusioncorp.com   #FQDN нашего хоста
+mydomain = stratos.xfusioncorp.com
 # Параметр myorigin указывает имя домена, которое используется в почте, отправляемой с этой машины 
 myorigin = $mydomain
 inet_interfaces = all
@@ -18,9 +18,9 @@ home_mailbox = Maildir/
 
 Включаем сервис: `systemctl enable --now postfix`.
 
-Добавляем пользователя в систему: `useradd username`.
+Добавляем пользователя в систему: `useradd mariyam`.
 
-Задаем ему пароль: `passwd username`.
+Задаем ему пароль: `passwd mariyam`.
 
 Подключаемся к хосту telnet-ом: `telnet stmail01 25`.
 
@@ -28,10 +28,10 @@ home_mailbox = Maildir/
 # EHLO — расширенное приветствие, которое позволит получить возможности почтового сервера
 EHLO localhost
 # Вводим адрес, от которого будем отправлять тестовое сообщение
-mail from:username@example.com
+mail from:mariyam@example.com
 # В ответ должны получить 250 2.1.0 Ok.
 # Указываем на какой адрес отправляем тестовое сообщение:
-rcpt to:username@example.com
+rcpt to:mariyam@example.com
 # Вводим команду:
 DATA
 # Получим 354 End data with <CR><LF>.<CR><LF> — это означает, что можно вводить текст сообщения
@@ -42,7 +42,7 @@ test message
 quit
 ```
 
-Переключаемся в созданного юзера: `su - username`.
+Переключаемся в созданного юзера: `su - mariyam`.
 
 Смотрим очередь писем: `mailq`.
 
