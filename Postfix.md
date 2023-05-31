@@ -16,6 +16,8 @@ my_networks = 172.16.238.0/24, 127.0.0.0/8
 home_mailbox = Maildir/
 ```
 
+Включаем сервис: `systemctl enable --now postfix`.
+
 Добавляем пользователя в систему: `useradd username`.
 
 Задаем ему пароль: `passwd username`.
