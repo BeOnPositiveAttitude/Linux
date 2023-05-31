@@ -28,10 +28,10 @@ home_mailbox = Maildir/
 # EHLO — расширенное приветствие, которое позволит получить возможности почтового сервера
 EHLO localhost
 # Вводим адрес, от которого будем отправлять тестовое сообщение
-mail from:user@example.com
+mail from:username@example.com
 # В ответ должны получить 250 2.1.0 Ok.
 # Указываем на какой адрес отправляем тестовое сообщение:
-rcpt to:user@example.com
+rcpt to:username@example.com
 # Вводим команду:
 DATA
 # Получим 354 End data with <CR><LF>.<CR><LF> — это означает, что можно вводить текст сообщения
