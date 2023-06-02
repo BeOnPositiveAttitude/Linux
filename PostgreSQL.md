@@ -11,7 +11,7 @@
 11. Редактируем конфиг: `vi /var/lib/pgsql/data/postgresql.conf`.
 12. Раскомментируем опцию: `listen_addresses = 'localhost'`.
 13. Редактируем конфиг: `vi /var/lib/pgsql/data/pg_hba.conf`.
-14. Редактируем следующие опции:
+14. Редактируем следующие опции (именно редактируем, а не добавляем новые!):
 ```bash
 local   all   all                  md5
 host    all   all   127.0.0.1/32   md5
