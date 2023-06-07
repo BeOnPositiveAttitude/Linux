@@ -32,3 +32,6 @@ zip -r /backup/xfusioncorp_ecommerce.zip /var/www/html/ecommerce
 # Передаем пароль через sshpass, опция StrictHostKeyChecking отключает проверку отпечатка хоста
 sshpass -p "H@wk3y3" scp -o StrictHostKeyChecking=no /backup/xfusioncorp_ecommerce.zip clint@stbkp01:/backup
 # Однако более правильно было бы использовать не sshpass, а сгенерить ssh-ключи и закинуть их на хост
+# ssh-keygen под пользователем steve на хосте stapp02
+# далее ssh-copy-id clint@stbkp01, вводи пароля от юзера clint
+scp /backup/xfusioncorp_ecommerce.zip clint@stbkp01:/backup
