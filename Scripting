@@ -33,5 +33,8 @@ zip -r /backup/xfusioncorp_ecommerce.zip /var/www/html/ecommerce
 sshpass -p "H@wk3y3" scp -o StrictHostKeyChecking=no /backup/xfusioncorp_ecommerce.zip clint@stbkp01:/backup
 # Однако более правильно было бы использовать не sshpass, а сгенерить ssh-ключи и закинуть их на хост
 # ssh-keygen под пользователем steve на хосте stapp02
-# далее ssh-copy-id clint@stbkp01, вводи пароля от юзера clint
+# далее ssh-copy-id clint@stbkp01, вводим пароля от юзера clint
+# т.е. мы копируем созданный под пользователем steve публичный ssh-ключ на удаленный хост в home-каталог пользователя clint
+# соответственно теперь мы можем запускать скрипт под пользователем steve, а в скрипте мы идем под пользователем clint по ssh
+# в общем ssh-ключи не привязаны к конкретному пользователю
 scp /backup/xfusioncorp_ecommerce.zip clint@stbkp01:/backup
