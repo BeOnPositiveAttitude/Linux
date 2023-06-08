@@ -45,3 +45,14 @@ echo "Status of launch: $rocket_status"
 
 Best practices по именованию переменных:
 - Используйте lower-case и символ нижнего подчеркивания для разделения слов в названии
+
+Пример из лабы. Мы должны делать копию файла с таким же именем плюс `_bkp` в конце.
+
+```bash
+# This script creates a backup of a given file by creating a copy as bkp
+# For example some-file is backed up as some-file_bkp
+
+file_name="create-and-launch-rocket"
+
+cp $file_name ${file_name}_bkp
+```
