@@ -103,3 +103,56 @@ echo $A / $B | bc -l
 ```
 
 Опция `-l` используется для вывода результата с плавающей запятой.
+
+Пример из лабы, если используются двойные скобки и аргументы командой строки, то нужно писать `$(($1 + $2))`, а не `$((1 + 2))`.
+
+```bash
+echo "Sum is $(($1 + $2))"
+
+echo "Difference is $(($1 - $2))"
+
+echo "Product is $(($1 * $2))"
+
+echo "Quotient is $(($1 / $2))"
+```
+
+```bash
+price=$(($1 * $2))
+
+echo "The total price for items is ${price} dollars"
+```
+
+```bash
+baskets=4
+apples_per_basket=5
+
+total_apples=`expr $baskets \* $apples_per_basket`
+
+echo "Total Apples = $total_apples"
+```
+
+Три варианта решения задачи нахождения среднего арифметического трех чисел.
+
+Вариант предложенный самой лабой.
+
+```bash
+num1=$1
+num2=$2
+num3=$3
+sum=$(( num1 + num2 + num3 ))
+average=$(echo "$sum / 3" | bc -l)
+echo $average
+```
+
+Два моих варианта.
+
+```bash
+sum=`expr $1 + $2 + $3`
+echo $sum / 3 | bc -l
+```
+
+```bash
+sum=$(($1 + $2 + $3))
+avg=$(echo $sum / 3 | bc -l)
+echo $avg
+```
