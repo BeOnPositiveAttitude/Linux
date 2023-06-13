@@ -87,3 +87,34 @@ Comparison statement указывается в квадратных скобка
 - `[ -s FILE ]` - проверяется, что файл существуют и его размер больше 0
 - `[ -x FILE ]` - проверяется, что файл является исполняемым
 - `[ -w FILE ]` - проверяется, что файл доступен для записи
+
+Пример из лабы, проверка что директория существует:
+
+```bash
+if [ -d "/home/bob/caleston" ]
+then
+    echo "Directory exists"
+else
+    echo "Directory not found"
+fi
+```
+
+Вернуть большее из двух чисел:
+
+```bash
+if [ $1 -gt $2 ]
+then
+    echo $1
+else
+    echo $2
+fi
+```
+
+Develop a shell script that accepts the number of a month as input and prints the name of the respective month.
+
+`./print-month-name.sh 1` should print `January` and `./print-month-name.sh 5` should print `May`.
+
+Also keep these in mind:
+- The script must accept a month number as a command line argument.
+- If a month number is not provided as command line argument, the script must exit with the message `No month number given`.
+- The script must not accept a value other than 1 to 12. If not the script must exit with the error `Invalid month number given`.
