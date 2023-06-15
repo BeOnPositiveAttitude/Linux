@@ -38,6 +38,7 @@ rocket-lift-off $mission_name
 $rocket_status=$(rocket-status $mission_name)
 
 if [ $rocket_status = "failed" ]
+then
   rocket-debug $mission_name
 elif [ $rocket_status = "success" ]   #второе условие будет проверено, только если первое не равно True
 then
