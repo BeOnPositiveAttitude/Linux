@@ -13,7 +13,7 @@ rocket-start-sequence $mission_name
 rocket-start-engine $mission_name
 rocket-lift-off $mission_name
 
-$rocket_status=$(rocket-status $mission_name)
+rocket_status=$(rocket-status $mission_name)
 
 if [ $rocket_status = "failed" ]
 then
@@ -31,6 +31,8 @@ fi
 
 Нам нужно, чтобы скрипт ждал некоторое время и после проверял статус. Если статус все еще `launching`, то мы хотим дальше проверять статус до тех пор, пока он не изменится на `success` или `failed`.
 
+Для этого мы добавим новое условие перед выражением `if [ $rocket_status = "failed" ]`. Если ракета в статусе `launching`, то нужно подождать две секунды `sleep 2` и проверить статус снова.
+
 ```bash
 mission_name=$1
 
@@ -44,10 +46,81 @@ rocket-start-sequence $mission_name
 rocket-start-engine $mission_name
 rocket-lift-off $mission_name
 
-$rocket_status=$(rocket-status $mission_name)
+rocket_status=$(rocket-status $mission_name)
+
+if [ $rocket_status = "launching" ]
+then
+  sleep 2
+  rocket_status=$(rocket-status $mission_name)
 
 if [ $rocket_status = "failed" ]
 then
   rocket-debug $mission_name
 fi
 ```
+
+Но как быть, если и спустя две секунды ракета все еще в статусе `launching`? Для этого мы снова используем conditional statement.
+
+Это будет выражение `if` внутри выражения `if`:
+
+```bash
+mission_name=$1
+
+mkdir $mission_name
+
+rocket-add $mission_name
+
+rocket-start-power $mission_name
+rocket-internal-power $mission_name
+rocket-start-sequence $mission_name
+rocket-start-engine $mission_name
+rocket-lift-off $mission_name
+
+rocket_status=$(rocket-status $mission_name)
+
+if [ $rocket_status = "launching" ]
+then
+  sleep 2
+  rocket_status=$(rocket-status $mission_name)
+  if [ $rocket_status = "launching" ]
+  then
+    sleep 2
+    rocket_status=$(rocket-status $mission_name)
+  fi
+fi
+
+if [ $rocket_status = "failed" ]
+then
+  rocket-debug $mission_name
+fi
+```
+
+В итоге таких `if` внутри `if` может набраться довольно много, если ракета запускается например 2 часа, и это не очень правильный подход. Правильнее использовать цикл `while`. Цикл `while` выполняется до тех пор, пока верно условие.
+
+```bash
+mission_name=$1
+
+mkdir $mission_name
+
+rocket-add $mission_name
+
+rocket-start-power $mission_name
+rocket-internal-power $mission_name
+rocket-start-sequence $mission_name
+rocket-start-engine $mission_name
+rocket-lift-off $mission_name
+
+rocket_status=$(rocket-status $mission_name)
+
+while [ $rocket_status = "launching" ]
+do
+  sleep 2
+  rocket_status=$(rocket-status $mission_name)
+done
+
+if [ $rocket_status = "failed" ]
+then
+  rocket-debug $mission_name
+fi
+```
+

@@ -11,7 +11,7 @@ rocket-start-sequence $mission_name
 rocket-start-engine $mission_name
 rocket-lift-off $mission_name
 
-$rocket_status=$(rocket-status $mission_name)
+rocket_status=$(rocket-status $mission_name)
 ```
 
 В конце нашего скрипта мы выполняем команду `rocket-status`, чтобы протестировать статус выполнения скрипта. Эта команда возвращает статус ракеты, и он может быть следующим - launching, success, failed.
@@ -35,7 +35,7 @@ rocket-start-sequence $mission_name
 rocket-start-engine $mission_name
 rocket-lift-off $mission_name
 
-$rocket_status=$(rocket-status $mission_name)
+rocket_status=$(rocket-status $mission_name)
 
 if [ $rocket_status = "failed" ]
 then
@@ -88,6 +88,17 @@ Comparison statement указывается в квадратных скобка
 - `[ -s FILE ]` - проверяется, что файл существуют и его размер больше 0
 - `[ -x FILE ]` - проверяется, что файл является исполняемым
 - `[ -w FILE ]` - проверяется, что файл доступен для записи
+
+```bash
+month_number=$1
+
+if [ -z $month_number ]   #проверяется, введен ли требуемый аргумент комадной строки
+then
+  echo "No month number given. Please enter a month number as a command line argument."
+  echo "eg: ./print-month-number 5"
+  exit
+fi
+```
 
 Пример из лабы, проверка что директория существует:
 

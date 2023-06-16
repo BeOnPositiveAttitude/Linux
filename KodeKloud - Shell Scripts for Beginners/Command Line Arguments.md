@@ -13,7 +13,7 @@ rocket-start-sequence $mission_name
 rocket-start-engine $mission_name
 rocket-lift-off $mission_name
 
-$rocket_status=$(rocket-status $mission_name)
+rocket_status=$(rocket-status $mission_name)
 echo "Status of launch: $rocket_status"
 ```
 
@@ -48,7 +48,7 @@ rocket-lift-off $mission_name
 
 rocket-status $mission_name
 
-$rocket_status=$(rocket-status $mission_name)
+rocket_status=$(rocket-status $mission_name)
 echo "Status of launch: $rocket_status"
 ```
 
@@ -69,7 +69,7 @@ rocket-lift-off $1
 
 rocket-status $1
 
-$rocket_status=$(rocket-status $1)
+rocket_status=$(rocket-status $1)
 echo "Status of launch: $rocket_status"
 ```
 
