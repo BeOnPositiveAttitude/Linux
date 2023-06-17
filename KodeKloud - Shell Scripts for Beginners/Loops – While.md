@@ -155,3 +155,45 @@ done
 Выражение `break` может использоваться в циклах `for` и `while`. Оно прерывает выполнение цикла и выходит из него. Это полезно при работе с бесконечными циклами, как в примере выше.
 
 Выражение `continue` в свою очередь возвращает выполнение цикла в его начало.
+
+Задачи из лабы, простой калькулятор:
+
+```bash
+while true
+do
+  echo "1. Add"
+  echo "2. Substract"
+  echo "3. Multiply"
+  echo "4. Divide"
+  echo "5. Quit"
+
+  read -p "Enter your choice: " choice
+
+  if [ $choice -eq 1 ]
+  then
+    read -p "Enter Number1: " number1
+    read -p "Enter Number2: " number2
+    echo Answer=$(( $number1 + $number2 ))
+  elif [ $choice -eq 2 ]
+  then
+    read -p "Enter Number1: " number1
+    read -p "Enter Number2: " number2
+    echo Answer=$(( $number1 - $number2 ))
+  elif [ $choice -eq 3 ]
+  then
+    read -p "Enter Number1: " number1
+    read -p "Enter Number2: " number2
+    echo Answer=$(( $number1 * $number2 ))
+  elif [ $choice -eq 4 ]
+  then
+    read -p "Enter Number1: " number1
+    read -p "Enter Number2: " number2
+    echo Answer=$(( $number1 / $number2 ))
+  elif [ $choice -eq 5 ]
+  then
+    break
+  else
+    continue
+  fi
+done
+```
