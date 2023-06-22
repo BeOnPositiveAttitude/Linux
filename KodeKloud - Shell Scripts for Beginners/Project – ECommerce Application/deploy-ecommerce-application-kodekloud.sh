@@ -17,6 +17,11 @@ function print_color(){
   echo -e "${COLOR} $2 ${NC}"
 }
 
+# В итоге будет команда echo -e "\033[0;32mInstalling firewalld...\033[0m"
+# Первый код '\033[0;32m' означает зеленый цвет, $2 - это строка, которую нужно вывести на экран и раскрасить зеленым,
+# последний код '\033[0m' означает нет цвета, это нужно чтобы раскрасилась только указанная нами строка,
+# иначе, если этого не сделать, весь текст в терминале далее станет зеленого цвета
+
 #######################################
 # Check the status of a given service. If not active exit script
 # Arguments:
@@ -27,9 +32,9 @@ function check_service_status(){
 
   if [ $service_is_active = "active" ]
   then
-    echo "$1 is active and running"
+    print_color "green" "$1 is active and running"
   else
-    echo "$1 is not active/running"
+    print_color "red" "$1 is not active/running"
     exit 1
   fi
 }
@@ -45,9 +50,9 @@ function is_firewalld_rule_configured(){
 
   if [[ $firewalld_ports == *$1* ]]
   then
-    echo "FirewallD has port $1 configured"
+    print_color "green" "FirewallD has port $1 configured"
   else
-    echo "FirewallD port $1 is not configured"
+    print_color "red" "FirewallD port $1 is not configured"
     exit 1
   fi
 }
@@ -176,3 +181,7 @@ for item in Laptop Drone VR Watch Phone
 do
   check_item "$web_page" $item
 done
+
+# Здесь переменная "$web_page" берется в ковычки, т.к. веб-страница содержит множество пробелов,
+# из-за этого bash рассматривает ее как множество аргументов комадной строки,
+# ковычки помогут нам избежать этого
