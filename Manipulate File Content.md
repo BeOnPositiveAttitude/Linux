@@ -33,3 +33,14 @@ Ctrl+D
 Заменить только слово "band" целиком: `sed 's/\band\b/is/g' /home/BSD.txt` . Еще один вариант замены слова целиком.
 
 Удалить строки с указанным словом: `sed '/software/d' BSD.txt > BSD_DELETE.txt`
+
+Найти в каталоге все текстовые файлы и для каждого из них (через `xargs`) посчитать (`grep -c`) количество вхождений слова "Alice":
+
+```bash
+find /home/admin/ -type f -name "*.txt" | xargs grep -c 'Alice'
+/home/admin/agent/sadagent.txt:0
+/home/admin/84-0.txt:0
+/home/admin/11-0.txt:398
+/home/admin/1342-0.txt:1
+/home/admin/1661-0.txt:12
+```
