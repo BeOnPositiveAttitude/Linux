@@ -44,3 +44,19 @@ find /home/admin/ -type f -name "*.txt" | xargs grep -c 'Alice'
 /home/admin/1342-0.txt:1
 /home/admin/1661-0.txt:12
 ```
+
+Команда `cat /proc/1/environ` возвращает длинную строку не разделенную пробелами или переносами:
+
+`PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/binTERM=xtermcontainer=youlookedHOME=/rootHOSTNAME=ip-172-31-39-232`
+
+Сделать красиво можно с помощью утилиты `tr` (translate). Заменим символ `\0` на перенос строки:
+
+```bash
+cat /proc/1/environ | tr "\0" "\n"
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+TERM=xterm
+container=youlooked
+HOME=/root
+HOSTNAME=ip-172-31-39-232
+```
