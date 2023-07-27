@@ -9,7 +9,9 @@ sudo setfacl --modify mask:r examplefile   #сделать маску тольк
 # после наложения маски, в выводе getfacl появится поле "effective" отражающее результирующие права на файл
 sudo setfacl --modify group:wheel:rw examplefile   #дать права группе
 sudo setfacl --modify user:aaron:--- examplefile   #запретить юзеру что-либо делать с файлом
+sudo setfacl -m u:aaron:- examplefile   #запретить юзеру что-либо делать с файлом, более короткий формат
 sudo setfacl -m u:bob:rwx /var/www/   #дать права юзеру, m=modify
+sudo setfacl -m u:ammar:-,u:jerome:r /etc/sysctl.conf   #дать разные права сразу двум юзерам
 sudo setfacl --remove user:aaron examplefile   #удалить ACL юзера на файл
 sudo setfacl --remove group:wheel examplefile   #удалить ACL группы на файл
 sudo setfacl --recursive -m user:aaron:rwx dir1/   #поменять ACL рекурсивно на папку и все вложенные файлы
