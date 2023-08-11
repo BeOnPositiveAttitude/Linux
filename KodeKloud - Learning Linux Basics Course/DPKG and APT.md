@@ -27,3 +27,5 @@
 Смотреть список пакетов в репозитории: `apt list | grep telnet`.
 
 Обновить только конкретный пакет: `sudo apt --only-upgrade install remmina`.
+
+Список установленных пакетов: `dpkg-query -l | less`.
