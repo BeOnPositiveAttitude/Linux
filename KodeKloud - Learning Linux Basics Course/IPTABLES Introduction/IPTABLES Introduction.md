@@ -88,3 +88,5 @@ iptables -A INPUT -p tcp --dport 5432 -j DROP                      #дропат
 Блокировать любой входящий трафик: `iptables -A INPUT -j DROP`.
 
 Сохранить правила iptables на постоянной основе в RPM-based системе: `service iptables save`.
+
+Удалить все правила в цепочке: `iptables -F`. Здесь `-F = --flush`.
