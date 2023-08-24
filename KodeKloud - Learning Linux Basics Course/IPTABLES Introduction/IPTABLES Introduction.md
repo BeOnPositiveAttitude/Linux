@@ -89,4 +89,4 @@ iptables -A INPUT -p tcp --dport 5432 -j DROP                      #дропат
 
 Сохранить правила iptables на постоянной основе в RPM-based системе: `service iptables save`.
 
-Удалить все правила в цепочке: `iptables -F`. Здесь `-F = --flush`.
+Удалить все правила в цепочке: `iptables -F`. Здесь `-F` означает `--flush`.
