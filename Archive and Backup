@@ -29,3 +29,9 @@ tar -caf archive.tar.gz file1   #a=autocompress, автоматически оп
 tar -xf archive.tar.gz file1   #распаковать архив, z можно не указывать!
 
 zcat file.txt.bz2   #смотреть содержимое архива без распаковки, аналогично bzcat и xzcat
+
+cpio -idmv -D /   # -i, --extract                       Extract files from an archive (run in copy-in mode)
+                  # -d, --make-directories              Create leading directories where needed
+                  # -m, --preserve-modification-time    Retain previous file modification times when creating files
+                  # -v, --verbose
+                  # -D, --directory=DIR                 Change to directory DIR
