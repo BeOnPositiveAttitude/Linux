@@ -102,6 +102,14 @@ sudo htpasswd -D /etc/httpd/passwords john   #D=delete, удалить запи�
     Require valid-user
 </Directory>
 
+Либо для настройки защищенных директорий Apache вместо правки основного конфига создаем в соответствующем каталоге файл /var/www/html/admin/.htaccess с содержимым:
+
+AuthType Basic
+AuthName "Password Required"
+Require valid-user
+AuthUserFile /etc/httpd/passwords
+
+Для проверки команда запросит пароль пользователя: curl -u john http://stapp02:8080/admin
 
 Добавить response headers в конфиг Apache /etc/httpd/conf/httpd.conf:
 
