@@ -22,3 +22,14 @@ yum install nginx -y
 ```
 
 Файл `index.html` в каталоге `/usr/share/nginx/html` по умолчанию является ссылкой, можно ее удалить и сделать новый файл `index.html` с нужным содержимым.
+
+Для настройки Nginx в качестве Reverse Proxy используем следующий конфиг:
+
+```bash
+server {
+  listen 80;
+  location / {
+    proxy_pass http://my_server:3000;   #здесь указываем хост и порт, на который нужно проксировать запросы
+  }
+}
+```
