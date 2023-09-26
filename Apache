@@ -148,3 +148,19 @@ Redirect 301 / http://www.stapp03.stratos.xfusioncorp.com:5001/
 ServerName www.stapp03.stratos.xfusioncorp.com:5001/blog/
 Redirect 302 /blog/ http://www.stapp03.stratos.xfusioncorp.com:5001/news/
 </VirtualHost>
+
+# PAM Authentication 
+yum install -y mod_authnz_external pwauth   #ставим необходимые пакеты
+vi /etc/httpd/conf.d/authnz_external.conf   #редактируем конфиг
+
+# Добавляем следующую секцию:
+<Directory /var/www/html/protected>
+AuthType Basic
+AuthName "PAM Authentication"
+AuthBasicProvider external
+AuthExternal pwauth
+require valid-user
+</Directory>
+
+systemctl restart httpd && systemctl status httpd   #рестартим Apache
+curl -u yousuf:Passw0rd_ http://localhost:8080/protected   #проверяем доступность
