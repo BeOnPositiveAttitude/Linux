@@ -33,3 +33,32 @@ server {
   }
 }
 ```
+
+Для настройки Nginx в качестве LoadBalancer используем следующий минимальный конфиг:
+
+```bash
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    upstream backend {
+        server stapp01:3003;
+        server stapp02:3003;
+        server stapp03:3003;
+    }
+    
+    server {
+        location / {
+            proxy_pass http://backend;
+        }
+    }
+}
+```
