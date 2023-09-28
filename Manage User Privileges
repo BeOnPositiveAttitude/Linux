@@ -5,6 +5,9 @@ sudo visudo   #для редактирования файла /etc/sudoers
 sudo -u trinity ls /home/trinity   #запустить команду от лица юзера тринити
 sudo -lU user1   #смотреть какие sudo-команды может запускать юзер1
 
+su - rds-server   #при попытке переключиться на пользователя с shell = /sbin/nologin получим сообщение "This account is currently not available."
+# Нужно делать это командой: su -s /bin/bash rds-server
+
 root ALL=(ALL:ALL) ALL 
 Первое поле показывает имя пользователя, которое правило будет применять к (root).
 Первое ALL означает, что данное правило применяется ко всем хостам.
