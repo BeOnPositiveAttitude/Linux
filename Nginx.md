@@ -62,3 +62,8 @@ http {
     }
 }
 ```
+
+Максимальная длина DNS-имени в секции `map{}`, по которому обращается клиент, для Nginx Openresty составляет 46 символов. Если сделать больше, получим ошибку: `could not build map_hash, you should increase map_hash_bucket_size: 64`.
+
+Чтобы использовать более длинные имена нужно добавить в начало секции `stream{}` опцию `map_hash_bucket_size 128;`. 
+
