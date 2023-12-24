@@ -1,5 +1,7 @@
 ip link show = ip l   #смотреть имена сетевых интерфейсов
+ip link show eth0   #смотреть данные по конкретному интерфейсу
 ip addresses show = ip a   #смотреть айпишники
+ip addr show eth0   #смотреть ip-адрес конкретного интерфейса
 ip route show = ip r   #смотреть роуты
 cat /etc/resolv.conf   #смотреть dns-серверы
 /etc/sysconfig/network-scripts/   #путь где лежат файлы с настройками сетевых интерфейсов
