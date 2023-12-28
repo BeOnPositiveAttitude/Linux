@@ -25,3 +25,5 @@ hostnamectl   #смотреть имя хоста
 nmcli con show   #смотреть подключения
 nmcli device status   #смотреть статус физических портов
 nmcli connection add type ethernet ifname enp0s8   #если есть физический порт и нужно добавить на него подключение
+
+nmap -p- localhost   #сканировать все порты на хосте
