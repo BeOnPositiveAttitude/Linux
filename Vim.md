@@ -7,3 +7,5 @@ Go to the bottom of the file by pressing `Shift+G`.
 Redo: `Ctrl+R`.
 
 Заменить какое-либо слово во всем файле: `:%s/search_phrase/replace_phrase/g`.
+
+Тренажер по Vim: `vimtutor`.
