@@ -29,3 +29,5 @@
 \W :the base name of the current working directory, with $HOME abbreviated with a tilde
 \$ :if the effective UID is 0, a #, otherwise a $
 ```
+
+[Полезный ресурс](https://bash-prompt-generator.org/) для генерации кастомного prompt.
