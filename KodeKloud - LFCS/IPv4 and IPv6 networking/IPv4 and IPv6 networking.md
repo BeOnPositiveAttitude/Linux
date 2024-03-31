@@ -75,6 +75,8 @@ network:
   version: 2
 ```
 
+Меняем права на конфиг: `sudo chmod 600 /etc/netplan/99-mysettings.yaml`.
+
 Применяем конфиг: `sudo netplan try --timeout 30`.
 
 Смотреть маршруты: `ip route`.
