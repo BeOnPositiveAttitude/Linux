@@ -49,4 +49,59 @@ Status: active
 [ 4] Anywhere                   DENY IN     10.11.12.100
 ```
 
-Удалим четвертое правило: `sudo ufw delete 4`
+Удалим четвертое правило: `sudo ufw delete 4`.
+
+И вставим правило в нужную нам позицию: `sudo ufw insert 3 deny from 10.11.12.100`.
+
+Проверяем: `sudo ufw status numbered`.
+
+```
+Status: active
+
+     To                         Action      From
+     --                         ------      ----
+[ 1] 22                         ALLOW IN    192.168.1.60
+[ 2] 22                         ALLOW IN    10.11.12.0/24
+[ 3] Anywhere                   DENY IN     10.11.12.100
+[ 4] Anywhere                   ALLOW IN    10.11.12.0/24
+```
+
+Запретить исходящий трафик с определенного интерфейса на определенный IP-адрес: `sudo ufw deny out on enp0s3 to 8.8.8.8`.
+
+Результат:
+
+```
+Status: active
+
+     To                         Action      From
+     --                         ------      ----
+[ 1] 22                         ALLOW IN    192.168.1.60
+[ 2] 22                         ALLOW IN    10.11.12.0/24
+[ 3] Anywhere                   DENY IN     10.11.12.100
+[ 4] Anywhere                   ALLOW IN    10.11.12.0/24
+[ 5] 8.8.8.8                    DENY OUT    Anywhere on enp0s3         (out)
+```
+
+Разрешить входящие (`in`) соединения от машины с IP-адресом `192.168.1.60` к нашей машине, на определенный интерфейс (`enp0s3`), и на определенный IP-адрес (`192.168.1.81`) на этом интерфейсе:
+
+`sudo ufw allow in on enp0s3 from 192.168.1.60 to 192.168.1.81 port 80 proto tcp`.
+
+И разрешить исходящий (`out`) трафик в обратном направлении:
+
+`sudo ufw allow out on enp0s3 from 192.168.1.81 to 192.168.1.60 port 80 proto tcp`.
+
+Результат:
+
+```
+Status: active
+
+     To                         Action      From
+     --                         ------      ----
+[ 1] 22                         ALLOW IN    192.168.1.60
+[ 2] 22                         ALLOW IN    10.11.12.0/24
+[ 3] Anywhere                   DENY IN     10.11.12.100
+[ 4] Anywhere                   ALLOW IN    10.11.12.0/24
+[ 5] 8.8.8.8                    DENY OUT    Anywhere on enp0s3         (out)
+[ 6] 10.0.2.15 80/tcp on enp0s3 ALLOW IN    192.168.1.60
+[ 7] 192.168.1.60 80/tcp        ALLOW OUT   192.168.1.81 on enp0s3     (out)
+```
