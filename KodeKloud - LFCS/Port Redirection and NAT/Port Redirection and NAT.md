@@ -79,3 +79,27 @@ net.ipv6.conf.all.forwarding=1
 <img src="image-9.png" width="700" height="80"><br>
 
 Важно отметить, что `PREROUTING` chain применяется только, когда пакеты приходят из внешнего мира.
+
+Однако Server 1 не сможет ответить отправителю, т.к. в source address пакета будет указано, например `10.0.0.9`, а наш Server 1 не имеет обратного маршрута к сети `10.0.0.0/24`.
+
+Поэтому нужно, чтобы наш публичный сервер "притворялся", что пакет для Server 1 пришел НЕ от хоста `10.0.0.9`, а от его собственного адреса `192.168.0.1`. А публичный сервер в свою очередь сам ответит начальному отправителю пакета `10.0.0.9`.
+
+В терминологии iptables это называется маскарадингом.
+
+`sudo iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -o enp6s0 -j MASQUERADE`
+
+<img src="image-10.png" width="700" height="150"><br>
+
+<img src="image-11.png" width="700" height="150"><br>
+
+Для сравнения рассмотрим nft-команду: `sudo nft list ruleset`.
+
+Чтобы правила iptables не слетели после перезагрузки, нужно установить пакет: `sudo apt install iptables-persistent`.
+
+После этого мы можем сохранять правила iptables командой: `sudo netfilter-persistent save`.
+
+Справка по UFW: `man ufw-framework`.
+
+Смотреть правила iptables в таблице NAT: `sudo iptables --list-rules --table nat`.
+
+Очистить правила iptables из таблицы NAT: `sudo iptables --flush --table nat`.
