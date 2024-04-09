@@ -33,4 +33,17 @@ server {
 }
 ```
 
-<img src="image-2.png" width="700" height="200"><br>
+<img src="image-2.png" width="700" height="170"><br>
+
+<img src="image-3.png" width="700" height="150"><br>
+
+Если целевой веб-сервер слушает на нестандартном порту, то его необходимо указать в конфиге:
+
+```
+server {
+    listen 80;
+    location / {
+        proxy_pass http://1.1.1.1:8080;
+    }
+}
+```
