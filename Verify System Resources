@@ -1,9 +1,0 @@
-# tmpfs  - виртуальная файловая система, которая живет в оперативной памяти сервера, не на дисках
-du -sh /bin/   #s=summarized-view, h=human-readable, без опции s отобразит место занятое всеми подпапками
-lscpu   #инфа о процессорах
-lspci   #инфа о pci-устройствах
-free -h   #доступная памяти в столбце available, а не free
-free --mega   #смотреть в мегабайтах, т.к. по дефолту в другой величине
-sudo xfs_repair -v /dev/vdb1   #лечить ФС xfs
-sudo fsck.ext4  -v -f -p /dev/vdb2   #v=verbose, f=force-check, p=preen, лечить ФС ext4
-systemctl list-dependencies   #смотреть статус важных системных служб
