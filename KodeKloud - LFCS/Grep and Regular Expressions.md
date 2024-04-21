@@ -1,15 +1,65 @@
-grep -ir 'CentOS' /etc/   #r=recursive, искать рекурсивно по всей папке, i=case insensitive поиск 
-grep -vi 'centos' /etc/os-release   #v=inVert-match, искать строки в которых нет слова centos
-grep -oi 'centos' /etc/os-release   #o=only-matching, вывести только совпадающие слова, а не строки целиком
-grep '^sam' names.txt   #искать строки начинающиеся на sam
-grep 'sam$' names.txt   #искать строки заканчивающиеся на sam
-# если нужно их скомбинировать, то ^ указвается первым, а $ последним
-grep -r 'c.t' /etc/   #искать слова содержащие в себе cat, cut, c5t и т.д., точка означает один символ, две точки - два символа
-grep -wr 'c.t' /etc/   #w=word, искать именно слова cat, cut, c5t и т.д., а не содержащие их большие слова, например execute
-grep '\.' /etc/login.defs   #искать строки содержащие символ точки, экранируется обратным слэшем
-grep -r 'let*' /etc/   #искать строки с вхождением le, let, lett и т.д., то есть le тоже входит, * означает 0 и более раз, применяется только к последнему символу
-grep -r '/.*/' /etc/   #искать вхождения вида /ноль или любое количество символов между двумя слэшами/
-grep -r '0\+' /etc/   #искать строки содержащие 0 один и более раз, то есть 0, 00, 000, символ плюс экранируется
+Искать рекурсивно по всей папке: `grep -ir 'CentOS' /etc/`
+
+- `r = recursive`
+- `i = case-insensitive`
+
+Искать строки в которых нет указанного слова: `grep -vi 'centos' /etc/os-release`, здесь `v = inVert-match`.
+
+Искать именно заданное слово, но не составные слова, включающие это слово: `grep -wi 'name' /etc/os-release`, здесь `w = word-regexp, match only whole words`.
+
+Пример:
+
+```bash
+aidar@xubuntu-vm:~$ grep -i 'name' /etc/os-release
+PRETTY_NAME="Ubuntu 22.04.4 LTS"
+NAME="Ubuntu"
+VERSION_CODENAME=jammy
+UBUNTU_CODENAME=jammy
+```
+
+```bash
+aidar@xubuntu-vm:~$ grep -wi 'name' /etc/os-release
+NAME="Ubuntu"
+```
+
+Отобразить только искомое слово, но не строки, в которых оно встречается: `grep -oi 'centos' /etc/os-release`, здесь `o = only-matching`.
+
+Пример:
+
+```bash
+aidar@xubuntu-vm:~$ grep -i 'name' /etc/os-release
+PRETTY_NAME="Ubuntu 22.04.4 LTS"
+NAME="Ubuntu"
+VERSION_CODENAME=jammy
+UBUNTU_CODENAME=jammy
+```
+
+```bash
+aidar@xubuntu-vm:~$ grep -io name /etc/os-release
+NAME
+NAME
+NAME
+NAME
+```
+
+Искать строки начинающиеся на sam: `grep '^sam' names.txt`.
+
+Искать строки заканчивающиеся на sam: `grep 'sam$' names.txt`.
+
+Если нужно скомбинировать, то `^` указывается первым, а `$` последним.
+
+Искать слова содержащие в себе cat, cut, c5t и т.д.: `grep -r 'c.t' /etc/`. Точка означает один символ, две точки - два символа и т.д.
+
+Искать именно слова cat, cut, c5t и т.д., а не содержащие их составные слова, например execute: `grep -wr 'c.t' /etc/`.
+
+Искать строки содержащие символ точки, экранируется обратным слэшом: `grep '\.' /etc/login.defs`.
+
+Искать строки с вхождением le, let, lett и т.д.: `grep -r 'let*' /etc/`. Т.е. le тоже входит, `*` означает 0 и более раз, применяется только к последнему символу.
+
+Искать вхождения вида "/ноль или любое количество символов между двумя слэшами/": `grep -r '/.*/' /etc`.
+
+Искать строки содержащие 0 один и более раз, то есть 0, 00, 000, символ плюс экранируется: `grep -r '0\+' /etc/`.
+
 grep -c '^2' textfile > /home/bob/count   #посчитать число строк начинающихся на двойку
 grep -E = egrep   #позволяет нам использовать расширенный grep, в котором нет нужды указывать обратный слэш
 grep -Er '0+' /etc/ = egrep -r '0+' /etc/
