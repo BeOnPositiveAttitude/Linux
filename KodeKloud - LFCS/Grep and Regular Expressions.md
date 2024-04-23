@@ -74,21 +74,36 @@ NAME
 
 Искать строки с единицей и максимум тремя подряд нулями, возможно и ни одного нуля: `egrep -r '10{,3}' /etc/`.
 
-egrep -r '0{3}' /etc/   #искать строки ровно с тремя подряд нулями
-egrep -r 'disabled?' /etc/   #искать строки содержащие disabled, disable, ? означает что символа может и не быть вовсе
-egrep -r 'enabled|disabled' /etc/   #искать слова enabled и disabled
-egrep -r 'enabled?|disabled?' /etc/   #искать слова enabled, disabled, enable, disable
-egrep -r 'c[au]t' /etc/   #искать строки содержащие слова cat или cut  
-egrep -r '/dev/.*' /etc/   #искать строки содержащие /dev/ и далее любое количество символов
-egrep -r '/dev/[a-z]*' /etc/   #искать строки содержащие /dev/ и далее любое количество символов от a до z
-egrep -r '/dev/[a-z]*[0-9]' /etc/   #искать строки содержащие /dev/ и далее любое количество символов от a до z и цифру от 0 до 9
-egrep -r '/dev/[a-z]*[0-9]?' /etc/   #искать строки содержащие /dev/ и далее любое количество символов от a до z и цифру от 0 до 9 либо цифры может не быть
-egrep -r '/dev/([a-z]*[0-9]?)*' /etc/   #скобками мождно задавать приоритет
-egrep -r '/dev/(([a-z]|[A-Z])*[0-9]?)*' /etc/   #большие или маленькие буквы
-egrep -r 'http[^s]' /etc/   #искать строки с http, но НЕ с https
-egrep -r '/[^a-z]' /etc/   #искать строки содержащие "/" и не содержащие далее маленьких букв
-grep '3\>' /home/bob/shuffled.txt > /opt/filtered.txt   #искать строки заканчивающиеся на цифру 3
+Искать строки ровно с тремя подряд нулями: `egrep -r '0{3}' /etc/`.
 
-grep -A1 Arsenal premier-league-table.txt   #отразит в результате поиска еще одну строку после строки Arsenal
-grep -B1 Arsenal premier-league-table.txt   #отразит в результате поиска еще одну строку перед строкой Arsenal
-grep -A1 -B1 Arsenal premier-league-table.txt   #отразит в результате поиска одну строку перед строкой Arsenal и строку после Arsenal, ну и сам Arsenal
+Искать строки содержащие disabled, disable, `?` означает что символа может и не быть вовсе: `egrep -r 'disabled?' /etc/`.
+
+Искать слова enabled или disabled: `egrep -r 'enabled|disabled' /etc/`.
+
+Искать слова enabled, disabled, enable, disable: `egrep -r 'enabled?|disabled?' /etc/`.
+
+Искать строки содержащие слова cat или cut: `egrep -r 'c[au]t' /etc/`.
+
+Искать строки содержащие `/dev/`, далее любое количество символов: `egrep -r '/dev/.*' /etc/`.
+
+Искать строки содержащие `/dev/`, далее любое количество символов от a до z: `egrep -r '/dev/[a-z]*' /etc/`.
+
+Искать строки содержащие `/dev/`, далее любое количество символов от a до z и цифру от 0 до 9: `egrep -r '/dev/[a-z]*[0-9]' /etc/`.
+
+Искать строки содержащие `/dev/`, далее любое количество символов от a до z и цифру от 0 до 9, либо цифры может и не быть: `egrep -r '/dev/[a-z]*[0-9]?' /etc/`.
+
+Скобками можно задавать приоритет: `egrep -r '/dev/([a-z]*[0-9]?)*' /etc/`.
+
+Большие или маленькие буквы: `egrep -r '/dev/(([a-z]|[A-Z])*[0-9]?)*' /etc/`.
+
+Искать строки с http, но НЕ с https: `egrep -r 'http[^s]' /etc/`.
+
+Искать строки содержащие `/` и не содержащие далее маленьких букв: `egrep -r '/[^a-z]' /etc/`.
+
+Искать строки заканчивающиеся на цифру 3: `grep '3\>' /home/bob/shuffled.txt > /opt/filtered.txt`.
+
+Отразит в результате поиска еще одну строку после строки Arsenal: `grep -A1 Arsenal premier-league-table.txt`.
+
+Отразит в результате поиска еще одну строку перед строкой Arsenal: `grep -B1 Arsenal premier-league-table.txt`.
+
+Отразит в результате поиска одну строку перед строкой Arsenal и строку после Arsenal, ну и сам Arsenal: `grep -A1 -B1 Arsenal premier-league-table.txt`.
