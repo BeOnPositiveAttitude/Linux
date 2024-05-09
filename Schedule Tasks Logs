@@ -1,9 +1,0 @@
-less /var/log/cron   #смотреть логи крона
-sudo grep CMD /var/log/cron   #CMD содержится в каждой строке, где упоминается наша созданная джоба
-sudo grep anacron /var/log/cron   #искать только сообщения анакрона
-sudo grep test_job /var/log/cron   #искать сообщения нашей тестовой джобы
-# пример строки из файла /etc/anacrontab
-1   10   test_job   /bin/echo "Testing anacron" | systemd-cat --identifier=test-job
-# т.к. добавили выполнение утилиты systemd-cat, то смотрим через journalctl -e
-sudo grep atd /var/log/cron   #смотреть логи демона atd
-# также можно искать сообщения в /var/log/messages и /var/log/syslog
