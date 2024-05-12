@@ -1,9 +1,0 @@
-sudo sysctl -a   #смотреть текущие параметры ядра
-# имя параметра может начинаться с vm=virtual-memory
-sudo sysctl -a | grep vm   #смотреть текущие параметры виртуальной памяти ядра, 
-sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1   #w=write-value-to-a-parameter, временно включить параметр ядра, до первого ребута
-sudo sysctl net.ipv6.conf.default.disable_ipv6   #смотреть значение определенного параметра ядра
-# чтобы изменить какой-либо параметр ядра на постоянной основе, нужно создать конфиг файл в /etc/sysctl.d/ с произвольным именем
-sudo vim /etc/sysctl.d/swap-less.conf   #как пример
-sudo sysctl -p /etc/sysctl.d/swap-less.conf   #применить немедленно новые параметры ядра
-sudo sysctl -a | sudo bash -c 'grep cache > /opt/runtime.txt'   #отразить все параметры ядра, далее грепнуть по слову cache и далее записать в файл
