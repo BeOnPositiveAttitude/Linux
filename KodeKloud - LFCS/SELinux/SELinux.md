@@ -75,6 +75,6 @@ xguest_u        user       s0         s0                             xguest_r
 
 Установить пакеты SELinux: `sudo yum install selinux*`.
 
-Конфигурационный файл SELinux в CentOS 7: `/etc/selinux/config`.
+Конфигурационный файл SELinux: `/etc/selinux/config`.
 
 Отключить SELinux на постоянной основе: `SELINUX=disabled`.
