@@ -60,6 +60,8 @@ system_u:object_r:sshd_exec_t:s0 /usr/sbin/sshd
 
 Домен представляет собой некий "security bubble", содержащий внутри этот процесс, и позволяющий ему делать только то, что определено в рамках type `sshd_t`.
 
+Type, примененный к конкретному процессу, решает какие правила ему "навязывать", поэтому это называется "type enforcement".
+
 Таким образом, благодаря наличию у файла определенного label, SELinux понимает какие ограничения он должен применить к запускающемуся процессу.
 
 На текущий момент процессы ограниченные доменом `sshd_t` не могут делать ничего. Если мы переведем SELinux в "Enforcing Mode", то не сможем залогиниться в систему по ssh.
@@ -86,8 +88,89 @@ semodule -i mymodule.pp
 
 Также хорошей практикой является создание отдельного policy package для каждого защищаемого объекта.
 
+Рассмотрим для пример строку из файла `mymodule.te`:
+
+```
+allow sshd_t var_log_t:file { append create getattr ioctl open };
+```
+
+Это говорит SELinux, что процессу в домене `sshd_t` разрешено выполнять определенные действия с файлами, у которых есть метка `var_log_t`, например создавать, открывать и т.д.
+
+Т.к. демон sshd пишет логи в файл `/var/log/auth.log`, то проверим метку на нем:
+
+```bash
+aidar@xubuntu-vm:~$ ls -lZ /var/log/auth.log
+-rw-r-----. 1 syslog adm system_u:object_r:var_log_t:s0 118378 мая 30 15:45 /var/log/auth.log
+```
+
+Изменить контекст SELinux (в данном примере пользователя) можно командой: `sudo chcon -u unconfined_u /var/log/auth.log`. Здесь `chcon` означает "change context".
+
+Изменить роль SELinux можно командой: `sudo chcon -r object_r /var/log/auth.log`.
+
+Изменить type SELinux можно командой: `sudo chcon -t user_home_t /var/log/auth.log`.
+
+В SELinux как правило мы работаем с сущностью type. Но кроме этого SELinux может "навязывать" ограничения, основываясь на пользователе, который пытается выполнить какое-либо действие, проверяя может ли пользователь "перейти" в определенную роль. Однако по умолчанию этого не происходит, т.к. при логине в ОС наш пользователь ассоциируется с пользователем SELinux под названием `unconfined_u`, у которого есть доступ практически ко всему.
+
+При использовании команды `chcon` необходимо указывать действительные labels для пользователя, роли и type SELinux.
+
+Смотреть labels пользователей SELinux: `seinfo -u`. Видимо аналог команды `sudo semanage user -l`.
+
+```bash
+aidar@xubuntu-vm:~$ seinfo -u
+
+Users: 7
+   root
+   staff_u
+   sysadm_u
+   system_u
+   unconfined_u
+   user_u
+   xdm
+```
+
+Смотреть labels для ролей SELinux: `seinfo -r`.
+
+```bash
+aidar@xubuntu-vm:~$ seinfo -r
+
+Roles: 15
+   auditadm_r
+   dbadm_r
+   guest_r
+   logadm_r
+   nx_server_r
+   object_r
+   secadm_r
+   staff_r
+   sysadm_r
+   system_r
+   unconfined_r
+   user_r
+   webadm_r
+   xdm_r
+   xguest_r
+```
+
+Смотреть labels для types SELinux: `seinfo -t`.
+
+Выше мы умышленно повесили некорректные labels на файл `/var/log/auth.log`. Как теперь это исправить? Есть два варианта. Первый - посмотреть на labels у аналогичных файлов в каталоге `/var/log`. Например на labels файла `/var/log/syslog`.
+
+Вместо того, чтобы вбивать вручную названия всех labels, мы можем сослаться (или иными словами скопировать labels) на "хороший" файл: `sudo chcon --reference=/var/log/syslog /var/log/auth.log`.
+
+А как насчет новых файлов? Предположим у нас есть веб-сервер. Создадим каталог `sudo mkdir /var/www` и в нем создадим несколько файлов `sudo touch /var/www/{1..10}`.
+
+При включенном SELinux наш веб-сервер (Apache либо Nginx) не смогут работать с этими файлами из-за отсутствия правильных labels.
+
+```bash
+aidar@xubuntu-vm:~$ ls -lZ /var/www
+total 4
+-rw-r--r--. 1 root root unconfined_u:object_r:httpd_sys_content_t:s0    0 мая 31 10:26 1
+...
+```
+
 Переведем SELinux в "Enforcing Mode": `sudo setenforce 1`.
 
 По умолчанию SELinux запрещает любые действия, поэтому если у нас нет необходимых разрешающих правил, то некоторые программы могут перестать работать.
 
 Чтобы перевести SELinux в "Enforcing Mode" на постоянной основе, нужно отредактировать файл `/etc/selinux/config` и поменять строку `SELINUX=enforcing`.
+
