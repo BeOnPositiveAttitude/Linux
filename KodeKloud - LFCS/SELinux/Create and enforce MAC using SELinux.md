@@ -253,9 +253,24 @@ unconfined_u:object_r:nfs_t:s0 shares
 
 Включить SELinux boolean: `sudo setsebool virt_use_nfs 1`.
 
-Смотреть состояние определенного SELinux boolean: `getsebool virt_use_nfs`
+Смотреть состояние определенного SELinux boolean: `getsebool virt_use_nfs`.
 
-Переведем SELinux в "Enforcing Mode": `sudo setenforce 1`.
+Другой аспект, который контролирует SELinux - на какой порт может "биндиться" определенный демон, чтобы слушать входящие подключения.
+
+Посмотреть биндинг портов, разрешенных для каждого type можно командой: `sudo semanage port --list | grep ssh`.
+
+Если мы хотим добавить дополнительный порт, например 2222: `sudo semanage port --add --type ssh_port_t --proto tcp 2222`.
+
+Проверяем:
+
+```bash
+aidar@xubuntu-vm:~$ sudo semanage port --list | grep ssh
+ssh_port_t                     tcp      2222, 22
+```
+
+Удалить порт из списка разрешенных: `sudo semanage port --delete --type ssh_port_t --proto tcp 2222`.
+
+Перевести SELinux в "Enforcing Mode": `sudo setenforce 1`.
 
 По умолчанию SELinux запрещает любые действия, поэтому если у нас нет необходимых разрешающих правил, то некоторые программы могут перестать работать.
 
