@@ -162,11 +162,98 @@ Roles: 15
 При включенном SELinux наш веб-сервер (Apache либо Nginx) не смогут работать с этими файлами из-за отсутствия правильных labels.
 
 ```bash
-aidar@xubuntu-vm:~$ ls -lZ /var/www
-total 4
--rw-r--r--. 1 root root unconfined_u:object_r:httpd_sys_content_t:s0    0 мая 31 10:26 1
+aidar@xubuntu-vm:~$ ls -Z /var/www/1
+unconfined_u:object_r:var_t:s0 /var/www/1
 ...
 ```
+
+Как видно это слишком "общие" labels. К счастью в SELinux есть своего рода БД, которая указывает как должны быть промаркированы файлы в определенных директориях.
+
+Выполним команду: `sudo restorecon -R /var/www`. Здесь `R = recursive`.
+
+Проверим результат:
+
+```bash
+aidar@xubuntu-vm:~$ ls -Z /var/www/1
+unconfined_u:object_r:httpd_sys_content_t:s0 /var/www/1
+```
+
+Важно понимать, что по умолчанию команда `restorecon` восстанавливает только label для type, а пользователь и роль не меняются. Предположим мы умышленно поменяли пользователя SELinux:
+
+`sudo chcon -u staff_u /var/www/1`.
+
+```bash
+aidar@xubuntu-vm:~$ ls -Z /var/www/1
+staff_u:object_r:httpd_sys_content_t:s0 /var/www/1
+```
+
+Если мы вновь выполним команду: `sudo restorecon -R /var/www`, то увидим, что пользователь не изменился.
+
+```bash
+aidar@xubuntu-vm:~$ ls -Z /var/www/1
+staff_u:object_r:httpd_sys_content_t:s0 /var/www/1
+```
+
+Чтобы форсировать восстановление пользователя/роли нужно добавить флаг `-F`:
+
+`sudo restorecon -F -R /var/www`
+
+Результат:
+
+```bash
+aidar@xubuntu-vm:~$ ls -Z /var/www/1
+system_u:object_r:httpd_sys_content_t:s0 /var/www/1
+```
+
+Видим, что пользователь поменялся на дефолтного пользователя SELinux для данной директории. Стоит отметить, что изменение labels с помощью команды `chcon` имеет некоторые недостатки. Если ФС когда-либо будет снова "перемаркирована" (relabeled), как это было при установке SELinux, то кастомные labels, установленные нами на файлах, могут быть потеряны. Поэтому, чтобы сохранить изменения в будущем, выполним это другим способом.
+
+Например, нам нужно, чтобы файл `10`, всегда имел другую type label. Вместо использования `chcon`, мы можем выполнить следующую команду:
+
+`sudo semanage fcontext --add --type var_log_t /var/www/10`
+
+Данная команда добавляет `--add` новое дефолтное значение file context в БД SELinux для указанного файла, но не обновляет его!
+
+Выполним команду: `sudo restorecon /var/www/10` и проверим результат:
+
+```bash
+aidar@xubuntu-vm:~$ ls -Z /var/www/10
+system_u:object_r:var_log_t:s0 /var/www/10
+```
+
+Если требуется задать новый контекст для целого каталога, входящих в него подкаталогов и файлов , синтаксис команды становится несколько сложнее. На помощь приходит команда:
+
+```bash
+aidar@xubuntu-vm:~$ sudo semanage fcontext --list | grep "/var/www/uploads"
+/var/www/uploads(/.*)?                             all files          system_u:object_r:httpd_cache_t:s0
+```
+
+В итоге получаем пример команды: `sudo semanage fcontext --add --type nfs_t "/nfs/shares(/.*)?"`.
+
+Создадим указанный каталог: `sudo mkdir -p /nfs/shares` и посмотрим labels.
+
+```bash
+aidar@xubuntu-vm:~$ ls -Z /nfs/
+unconfined_u:object_r:root_t:s0 shares
+```
+
+"Восстановим" labels: `sudo restorecon -R /nfs/` и снова посмотрим на labels.
+
+```bash
+aidar@xubuntu-vm:~$ ls -Z /nfs/
+unconfined_u:object_r:nfs_t:s0 shares
+```
+
+Вместо определения сложных политик type enforcement, мы можем использовать так называемые "booleans", как будто мы щелкаем переключателем, разрешающим или запрещающим набор действий. Список поддерживаемых SELinux booleans можно посмотреть командой:
+
+`sudo semanage boolean --list`
+
+Рассмотрим пример-строку: `virt_use_nfs  (off  ,  off)  Determine whether confined virtual guests can use nfs file systems.`
+
+Первый `off` означает текущее состояние - выключен, второй `off` означает значение по умолчанию.
+
+Включить SELinux boolean: `sudo setsebool virt_use_nfs 1`.
+
+Смотреть состояние определенного SELinux boolean: `getsebool virt_use_nfs`
 
 Переведем SELinux в "Enforcing Mode": `sudo setenforce 1`.
 
