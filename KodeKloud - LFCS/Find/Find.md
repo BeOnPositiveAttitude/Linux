@@ -71,14 +71,19 @@ Permissions for others have not to be `r` or `w`. That means, if any of these tw
 
 Искать файлы у которых для others нет разрешения на чтение: `sudo find /opt/findme/ -not -perm /o=r`.
 
-find /opt/findme/ -perm /4000 -exec rm -f {} \;   #искать файлы с установленным SUID и затем удалить их все
-find /opt/findme/ -type f -size +1k -exec cp "{}" /opt/ \;   #искать файлы размером более 1 Кб и далее скопировать их в /opt
-sudo find /home/bob/collection/ -type f -name "*.txt" -exec mv {} /opt/textfiles/ \;   #искать txt-файлы и переместить в папку 
-sudo find /home/bob/collection/ -type f -user adm -exec cp {} /opt/admfiles/  \;   #искать файлы, у которых владелец adm и копировать в папку
-sudo find ./collection/ -mmin -60 -type f -exec cp --target-directory=/opt/oldfiles/ {} +\;   #искать файлы, которые были изменены менее часа назад
-# и копировать в папку
+Искать файлы с установленным SUID и затем удалить их все: `find /opt/findme/ -perm /4000 -exec rm -f {} \;`.
 
-find /home/usersdata -type f -user kirsty -exec cp -p --parents {} /media/ \;   #parents - сохранить структуру папок при копировании
+Искать файлы размером более 1 Кб и далее скопировать их в /opt: `find /opt/findme/ -type f -size +1k -exec cp "{}" /opt/ \;`.
+
+Искать txt-файлы и переместить в папку: `sudo find /home/bob/collection/ -type f -name "*.txt" -exec mv {} /opt/textfiles/ \;`.
+
+Искать файлы, у которых владелец `adm` и копировать в каталог: `sudo find /home/bob/collection/ -type f -user adm -exec cp {} /opt/admfiles/  \;`.
+
+Искать файлы, которые были изменены менее часа назад и копировать в каталог:
+
+`sudo find ./collection/ -mmin -60 -type f -exec cp --target-directory=/opt/oldfiles/ {} +\;`
+
+`find /home/usersdata -type f -user kirsty -exec cp -p --parents {} /media/ \;`. Здесь `parents` означает сохранить структуру папок при копировании.
 
 Искать файл по имени: `locate City.txt`.
 
