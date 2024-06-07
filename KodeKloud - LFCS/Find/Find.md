@@ -40,26 +40,37 @@
 
 Искать файлы в точности с permissions 664: `find -perm 664`.
 
+Альтернативный вариант: `find -perm u=rw,g=rw,o=r`.
+
 Искать файлы как минимум с permissions 664, если есть файлы с extra-permissions, то такие файлы тоже отразятся в результатах поиска: `find -perm -664`.
 
 The use of the `-` option means "at least this permission level is set, and any higher permissions."
 
-This example displays all resources in the current directory with at least 644 permissions.
+Альтернативный вариант: `find -perm -u=rw,g=rw,o=r`.
 
-Искать файлы у которых есть какие-либо из указанных permissions: `find -perm /664`. Если пользователь имеет права только на чтение, то это войдет в результат поиска.
+Искать файлы, у которых есть любой из указанных permissions: `find -perm /664`. Например, если пользователь имеет права только на чтение, но имеет права на запись, то это все равно войдет в результат поиска.
 
-# т.к. u=r и это входит
-# The use of the / option means "any of the permissions listed are set."
-# This example displays resources with 644 or greater permissions.
+The use of the `/` option means "any of the permissions listed are set."
 
-# Find files/directories under /var/log/ directory that the group can write to, but others cannot read or write to it.
-# Permissions for the group have to be at least w. If there's also an extra r or x in there, it will still match.
-# Permissions for others have not to be r or w. That means, if any of these two permissions, r or w match for others, the result has to be excluded.
-# Ответ - sudo find /var/log/ -perm -g=w ! -perm /o=rw > /home/bob/data.txt
-sudo find /var/ -name pets -type d   #искать только директории с именем pets
-sudo find /usr -size +5M -size -10M -type f > /home/bob/size.txt   #искать файлы размером от 5 до 10 Мб
-sudo find /opt/findme/ -perm -u=x -type f > /opt/foundthem.txt   #искать именно файлы (не папки), у которых у владельца есть как минимум права на execute
-sudo find /opt/findme/ -not -perm /o=r   #искать файлы у которых для others нет разрешения на чтение
+Альтернативный вариант: `find -perm /u=rw,g=rw,o=r`.
+
+### Задача из лабы
+
+Find files/directories under `/var/log/` directory that the group can write to, but others cannot read or write to it. Permissions for the group have to be at least `w`. If there's also an extra `r` or `x` in there, it will still match.
+Permissions for others have not to be `r` or `w`. That means, if any of these two permissions, `r` or `w` match for others, the result has to be excluded.
+
+Ответ - `sudo find /var/log/ -perm -g=w ! -perm /o=rw > /home/bob/data.txt`.
+
+Искать файлы, которые не могут читать others: `find \! -perm -o=r`.
+
+Искать только директории с именем pets: `sudo find /var/ -name pets -type d`.
+
+Искать файлы размером от 5 до 10 Мб: `sudo find /usr -size +5M -size -10M -type f`.
+
+Искать именно файлы (не каталоги), у которых у владельца есть как минимум права на исполнение: `sudo find /opt/findme/ -perm -u=x -type f`.
+
+Искать файлы у которых для others нет разрешения на чтение: `sudo find /opt/findme/ -not -perm /o=r`.
+
 find /opt/findme/ -perm /4000 -exec rm -f {} \;   #искать файлы с установленным SUID и затем удалить их все
 find /opt/findme/ -type f -size +1k -exec cp "{}" /opt/ \;   #искать файлы размером более 1 Кб и далее скопировать их в /opt
 sudo find /home/bob/collection/ -type f -name "*.txt" -exec mv {} /opt/textfiles/ \;   #искать txt-файлы и переместить в папку 
