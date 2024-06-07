@@ -16,25 +16,38 @@
 
 Искать файлы размером менее 10Мб: `find /lib64 -size -10M`.
 
+<img src="image.png" width="600" height="180"><br>
+
 Искать файлы измененные в течение последних 5 минут: `find /dev -mmin -5`. Здесь `mmin = modified minute`.
 
 Искать файлы измененные более 5 минут назад: `find /dev -mmin +5`.
 
-Искать файлы измененные 5 минут назад от текущего времени, т.е. если сейчас 12:05, это значит искать файлы измененные с 12:00 до 12:01: `find /dev -mmin 5`.
+Искать файлы измененные 5 минут назад от текущего времени: `find /dev -mmin 5`, т.е. если сейчас 12:05, это значит искать файлы измененные с 12:00 до 12:01.
 
 Искать файла измененные за последние сутки: `find -mtime 0`. Здесь `0 = последние 24 часа`, `1 = последние 24-48 часов` и т.д.
 
-# Modification = Create or Edit, Modified Time (изменение содержимого файла) != Change Time (изменения метаданных файла, например permissions)
-find -cmin -5   #искать файлы, у которых были изменены permissions в течение последних 5 минут
-find -name "f*" -size 512k   #искать файлы в имени которых первая буква f и размером 512 Кб, оператор AND
-find -name "f*" -o -size 512k   #искать файлы в имени которых первая буква f или размером 512 Кб, оператор OR
-find -not -name "f*"   #искать файлы начинающиеся НЕ на f
-find \! -name "f*"   #искать файлы начинающиеся НЕ на f, альтернативный вариант
-find . -perm 664   #искать файлы в точности с permissions 664
-find . -perm -664   #искать файлы как минимум с permissions 664, если есть файлы с extra-permissions, то такие файлы тоже отразятся в результатах поиска
-# The use of the - option means "at least this permission level is set, and any higher permissions."
-# This example displays all resources in the current directory with at least 644 permissions.
-find . -perm /664   #искать файлы у которых есть какие-либо из указанных permissions, если юзер имеет права только на чтение, то это войдет в результат поиска
+"Modification" означает создание либо изменение файла. В Linux также существует понятие "change time", которое звучит похоже на "modified time", но на самом деле это разные понятия. "Modified time" относится ко времени изменения содержимого файла, а "change time" относится ко времени изменения метаданных файла (например file permissions). Таким образом "modified time" != "change time".
+
+Искать файлы, у которых были изменены permissions в течение последних 5 минут: `find -cmin -5`. Здесь `cmin = change minute`.
+
+Искать файлы, в имени которых первая буква f и размером 512 Кб, оператор AND: `find -name "f*" -size 512k`.
+
+Искать файлы, в имени которых первая буква f или размером 512 Кб, оператор OR: `find -name "f*" -o -size 512k`.
+
+Искать файлы начинающиеся НЕ на букву f: `find -not -name "f*"`.
+
+Искать файлы начинающиеся НЕ на букву f, альтернативный вариант: `find \! -name "f*"`. Восклицательный знак экранируется.
+
+Искать файлы в точности с permissions 664: `find -perm 664`.
+
+Искать файлы как минимум с permissions 664, если есть файлы с extra-permissions, то такие файлы тоже отразятся в результатах поиска: `find -perm -664`.
+
+The use of the `-` option means "at least this permission level is set, and any higher permissions."
+
+This example displays all resources in the current directory with at least 644 permissions.
+
+Искать файлы у которых есть какие-либо из указанных permissions: `find -perm /664`. Если пользователь имеет права только на чтение, то это войдет в результат поиска.
+
 # т.к. u=r и это входит
 # The use of the / option means "any of the permissions listed are set."
 # This example displays resources with 644 or greater permissions.
@@ -56,6 +69,6 @@ sudo find ./collection/ -mmin -60 -type f -exec cp --target-directory=/opt/oldfi
 
 find /home/usersdata -type f -user kirsty -exec cp -p --parents {} /media/ \;   #parents - сохранить структуру папок при копировании
 
-Искать файл по имени: `locate City.txt`. 
+Искать файл по имени: `locate City.txt`.
 
 Перед этим стоит обновить БД: `updatedb`.
