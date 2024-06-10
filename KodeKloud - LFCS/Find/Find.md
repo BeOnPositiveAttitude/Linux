@@ -54,6 +54,22 @@ The use of the `/` option means "any of the permissions listed are set."
 
 Альтернативный вариант: `find -perm /u=rw,g=rw,o=r`.
 
+Предположим мы хотим найти файлы, у которых только у владельца есть права на чтение и запись и больше ни у кого нет никаких других прав: `find -perm 600`.
+
+<img src="image-1.png" width="450" height="500"><br>
+
+Далее мы хотим найти файлы, у которых у владельца есть права как минимум на исполнение, а оставшиеся права могут быть какими угодно: `find -perm -100`.
+
+<img src="image-2.png" width="450" height="500"><br>
+
+Теперь мы хотим найти файлы, которые могут читать только owner или group, т.е. другими словами others не могут читать эти файлы: `find \! -perm -o=r`.
+
+<img src="image-3.png" width="450" height="500"><br>
+
+И наконец мы хотим найти файлы, которые могут читать либо owner, либо group, либо others, неважно кто, но хоть кто-то из них: `find -perm /u=r,g=r,o=r`.
+
+<img src="image-4.png" width="450" height="500"><br>
+
 ### Задача из лабы
 
 Find files/directories under `/var/log/` directory that the group can write to, but others cannot read or write to it. Permissions for the group have to be at least `w`. If there's also an extra `r` or `x` in there, it will still match.
