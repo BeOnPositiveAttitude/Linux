@@ -46,6 +46,6 @@
 
 Далее монтируем диск: `sudo mount /dev/nbd0 /mnt`.
 
-Отключить диск: `ndb-client -d /dev/nbd0`.
+Отключить диск: `nbd-client -d /dev/nbd0`.
 
 Смотреть список доступных экспортов: `nbd-client 10.0.2.15 -l`.
