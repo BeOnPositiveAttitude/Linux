@@ -1,13 +1,59 @@
-tar -tf archive.tar   #смотреть содержимое архива
-tar -cf archive.tar file1   #создать архив из file1
-tar -cfP logs.tar /var/log/   #P=absolute names, don't strip leading '/'s from file names
-tar -rf archive.tar file2   #добавить к уже существующему архиву archive.tar новый файл file2
-# важно!!! в зависимости от того какой путь мы указываем при создании архива, абсолютный или относительный, мы должны выбрать куда мы будем распаковывать архив
-# лучше перед распаковкой просмотреть содержимое ахрива; если он был запакован с указанием относительного пути, 
-# то этот относительный путь допишется к текущей директории в которую мы распаковываем
-tar -xf archive.tar   #распаковать содержимое архива
-tar -xf archive.tar -C /tmp   #распаковать содержимое архива в папку /tmp
-# если нужно сохранить все права на архивируемых файлых, нужно делать архив через sudo или под root
+### tar
+
+Смотреть содержимое архива: `tar -tf archive.tar` или `tar tf archive.tar`.
+
+Создать архив из file1: `tar cf archive.tar file1`.
+
+Добавить к уже существующему архиву `archive.tar` новый файл: `tar rf archive.tar file2`.
+
+Создать архив можно с указанием относительного пути:
+
+```bash
+tar cf archive.tar LFCS-ssl-lesson/
+
+tar tf archive.tar
+LFCS-ssl-lesson/
+LFCS-ssl-lesson/key.pem
+LFCS-ssl-lesson/myprivate.key
+LFCS-ssl-lesson/mycertificate.crt
+LFCS-ssl-lesson/req.pem
+```
+
+А можно создать архив с указанием абсолютного пути:
+
+```bash
+tar cf archive.tar /home/aidar/Downloads/LFCS-ssl-lesson/
+tar: Removing leading `/' from member names
+
+tar tf archive.tar
+home/aidar/Downloads/LFCS-ssl-lesson/
+home/aidar/Downloads/LFCS-ssl-lesson/key.pem
+home/aidar/Downloads/LFCS-ssl-lesson/myprivate.key
+home/aidar/Downloads/LFCS-ssl-lesson/mycertificate.crt
+home/aidar/Downloads/LFCS-ssl-lesson/req.pem
+```
+
+Как видим первый слэш `/` автоматически удаляется. Чтобы избежать этого, нужно добавить ключ `P`.
+
+Здесь `P = absolute names, don't strip leading '/'s from file names`.
+
+```bash
+tar cfP archive.tar /home/aidar/Downloads/LFCS-ssl-lesson/
+
+tar tf archive.tar
+tar: Removing leading `/' from member names
+/home/aidar/Downloads/LFCS-ssl-lesson/
+/home/aidar/Downloads/LFCS-ssl-lesson/key.pem
+/home/aidar/Downloads/LFCS-ssl-lesson/myprivate.key
+/home/aidar/Downloads/LFCS-ssl-lesson/mycertificate.crt
+/home/aidar/Downloads/LFCS-ssl-lesson/req.pem
+```
+
+Распаковать содержимое архива: `tar xf archive.tar`.
+
+Распаковать содержимое архива в каталог /tmp: `tar xf archive.tar -C /tmp`.
+
+
 gzip file1   #удалит исходный файл и создат архив file1.gz
 bzip2 file2   #удалит исходный файл и создат архив file2.bz2
 bzip2 -k file2   #создаст архив и сохранит исходный файл, -k = keep

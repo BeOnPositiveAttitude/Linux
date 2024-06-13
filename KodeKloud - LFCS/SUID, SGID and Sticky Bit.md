@@ -1,4 +1,4 @@
-### SGID
+### SUID
 
 If SUID bit is set on a file and a user executed it, the process will have the same rights as the owner of the file being executed.
 
@@ -88,9 +88,34 @@ ls -l both
 -rwSrwSr-- 1 aidar aidar 0 июн 12 18:44 both
 ```
 
-chmod 1777 dir1   #все тоже самое аналогично для sticky bit, цифра 1 означает установить sticky bit, в данном случае в комбинации со следующей цифрой 7,
-# означающей права на чтение/запись/исполнение, мы увидим drwxrwxrwt dir1, таким образом t означает, что файл внутри dir1 может быть удален только
-# владельцем этого файла или root-ом
+### Sticky Bit
+
+If a directory with sticky bit enabled will restrict deletion of the file inside it. It can be removed by root, owner of the file or who have to write permission on it. This is useful for publically accessible directories like `/tmp`.
+
+Создадим тестовую директорию: `mkdir stickydir`.
+
+```bash
+ls -ld stickydir/
+drwxrwxr-x 2 aidar aidar 4096 июн 13 09:13 stickydir/
+```
+
+Повесим на нее sticky bit: `chmod +t stickydir` либо `chmod 1777 stickydir`.
+
+```bash
+ls -ld stickydir/
+drwxrwxrwt 2 aidar aidar 4096 июн 13 09:13 stickydir/
+```
+
+Маленькая буква `t` означает права на чтение, запись, исполнение и установленный sticky bit.
+
+Изменим права: `chmod 1666 stickydir`.
+
+```bash
+ls -ld stickydir/
+drw-rw-rwT 2 aidar aidar 4096 июн 13 09:13 stickydir/
+```
+
+Большая буква `T` означает права только на чтение и запись, а также установленный sticky bit.
 
 Искать в текущей директории файлы с установленным SUID: `find -perm /4000`.
 
@@ -98,4 +123,4 @@ chmod 1777 dir1   #все тоже самое аналогично для sticky
 
 Искать в текущей директории файлы с установленным SUID либо SGID, либо SUID и SGID одновременно: `find -perm /6000`.
 
-chmod u+s,g+s,o+t /home/bob/datadir   #установить SUID, SGID и sticky bit
+Установить SUID, SGID и sticky bit: `chmod u+s,g+s,o+t /home/bob/datadir`.
