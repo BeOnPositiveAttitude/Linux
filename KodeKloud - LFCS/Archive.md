@@ -53,32 +53,70 @@ tar: Removing leading `/' from member names
 
 Распаковать содержимое архива в каталог /tmp: `tar xf archive.tar -C /tmp`.
 
+### gzip, bzip2, xz
 
-gzip file1   #удалит исходный файл и создат архив file1.gz
-bzip2 file2   #удалит исходный файл и создат архив file2.bz2
-bzip2 -k file2   #создаст архив и сохранит исходный файл, -k = keep
-xz file3   #удалит исходный файл и создат архив file3.xz
-# важно!!! gzip, bzip2, xz не умеют упаковывать несколько файлов в один архив, они работают только с одни файлом
-# именно по этой причине эти утилиты работают в паре с tar
-gunzip file1.gz   #распаковать архив и удалить исходный архив
-bunzip file2.bz2   #распаковать архив и удалить исходный архив
-unxz file3.xz   #распаковать архив и удалить исходный архив
-gunzip -k file1.gz   #k=keep, распаковать архив и сохранить при этом исходный архив, аналогично для bzip2 и xz
-gunzip -l file1.gz   #l=list, смотреть содержимое архива, аналогично для bzip2 и xz
-zip archive.zip file1   #упаковать файл в формате .zip
-zip -r archive.zip Pictures/   #r=recursively, упаковать папку
-unzip archive.zip   #распаковать архив
-unzip archive.zip -d /tmp/   #распаковать в определенную папку
-tar -czf archive.tar.gz file1   #объединяем tar и gzip для создания архива
-tar -cjf archive.tar.bz2 file1   #объединяем tar и bzip2 для создания архива
-tar -cJf archive.tar.xz file1   #объединяем tar и xz для создания архива
-tar -caf archive.tar.gz file1   #a=autocompress, автоматически определит какой использовать формат архива на основании расширения файла
-tar -xf archive.tar.gz file1   #распаковать архив, z можно не указывать!
+Создать gzip-архив: `gzip file1`. При этом исходный файл будет удален.
 
-zcat file.txt.bz2   #смотреть содержимое архива без распаковки, аналогично bzcat и xzcat
+Создать gzip-архив и сохранить исходный файл: `gzip -k file2`. Здесь `k = keep`.
 
-cpio -idmv -D /   # -i, --extract                       Extract files from an archive (run in copy-in mode)
-                  # -d, --make-directories              Create leading directories where needed
-                  # -m, --preserve-modification-time    Retain previous file modification times when creating files
-                  # -v, --verbose
-                  # -D, --directory=DIR                 Change to directory DIR
+Создать bzip2-архив: `bzip2 file2`. При этом исходный файл будет удален.
+
+Создать bzip2-архив и сохранить исходный файл: `bzip2 -k file2`. Здесь `k = keep`.
+
+Создать xz-архив: `xz file3`. При этом исходный файл будет удален.
+
+Создать xz-архив и сохранить исходный файл: `xz -k file2`. Здесь `k = keep`.
+
+Распаковать gzip-архив и удалить исходный архив: `gunzip file1.gz`.
+
+Распаковать gzip-архив и сохранить исходный архив: `gunzip -k file1.gz`. Здесь `k = keep`.
+
+Распаковать bzip2-архив и удалить исходный архив: `bunzip2 file2.bz2`.
+
+Распаковать bzip2-архив и сохранить исходный архив: `bunzip2 -k file2.bz2`.
+
+Распаковать xz-архив и удалить исходный архив: `unxz file3.xz`.
+
+Распаковать xz-архив и сохранить исходный архив: `unxz -k file3.xz`.
+
+Просмотреть содержимое gzip-архива: `gzip -l file1.gz`. Здесь `l = list`.
+
+Просмотреть содержимое xz-архива: `xz -l file3.xz`.
+
+Создать zip-архив из файла: `zip archive.zip file1`.
+
+Создать zip-архив из директории: `zip -r archive.zip Pictures/`. Здесь `r = recursively`.
+
+Распаковать zip-архив: `unzip archive.zip`.
+
+Распаковать zip-архив в определенную директорию: `unzip archive.zip -d /tmp/`.
+
+**Важное замечание**! Утилиты gzip, bzip2, xz не умеют упаковывать несколько файлов или целую директорию с файлами в один архив, они работают только с одни файлом. Именно по этой причине эти утилиты используются в паре с утилитой `tar`.
+
+Утилита zip в свою очередь умеет упаковывать  несколько файлов или целую директорию с файлами в один архив.
+
+Объединяем tar и gzip для создания архива: `tar czf archive.tar.gz file1`.
+
+Объединяем tar и bzip2 для создания архива: `tar cjf archive.tar.bz2 file1`.
+
+Объединяем tar и xz для создания архива: `tar cJf archive.tar.xz file1`.
+
+Автоматически выбрать формат архива на основании расширения файла: `tar caf archive.tar.gz file1`. Здесь `a = auto-compress`.
+
+Распаковать архив: `tar xf archive.tar.gz`.
+
+
+Смотреть содержимое текстового файла, находящегося в gzip-архиве, без его распаковки: `zcat file.txt.gz`.
+
+Смотреть содержимое текстового файла, находящегося в bzip2-архиве, без его распаковки: `bzcat file.txt.bz2`.
+
+Смотреть содержимое текстового файла, находящегося в xz-архиве, без его распаковки: `xzcat file.txt.xz`.
+
+`cpio -idmv -D /`
+
+Опции:
+- `-i, --extract` - Extract files from an archive (run in copy-in mode)
+- `-d, --make-directories` - Create leading directories where needed
+- `-m, --preserve-modification-time` - Retain previous file modification times when creating files
+- `-v, --verbose`
+- `-D, --directory=DIR` - Change to directory DIR
