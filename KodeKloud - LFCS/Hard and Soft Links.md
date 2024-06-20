@@ -8,7 +8,7 @@
 
 Например: `ln /home/aaron/Pictures/family_dog.jpg /home/jane/Pictures/family_dog.jpg`.
 
-Здесь картинка в домашнем каталоге пользователя `aaron` - это исходный файл, а картинка в домашнем каталоге пользователя `jane` - это hard link.
+Здесь картинка в домашнем каталоге пользователя `aaron` - это исходный файл, а объект в домашнем каталоге пользователя `jane` - это hard link.
 
 Hard link указывает на ту же самую inode, что и оригинальный файл.
 
@@ -73,6 +73,12 @@ chmod 660 /home/aaron/Pictures/family_dog.jpg
 
 Создать soft link: `ln -s path_to_target_file path_to_link_file`.
 
+Например: `ln -s /home/aaron/Pictures/family_dog.jpg family_dog_shortcut.jpg`.
+
+Здесь картинка в домашнем каталоге пользователя `aaron` - это исходный файл, а объект `family_dog_shortcut.jpg` - это soft link.
+
 Если в выводе команды `ls -l` не отображается полный путь soft link, то можно воспользоваться командой: `readlink shortcut.jpg`.
 
 Soft link можно создать и для файла и для директории.
+
+Кроме того soft link можно создавать на разных ФС, в отличие от hard link.
