@@ -8,7 +8,11 @@
 
 Создать группу: `sudo groupadd developers`.
 
+Создать группу с определенным gid: `sudo groupadd -g 9875 developers`.
+
 Добавить пользователя john в группу developers: `sudo gpasswd -a john developers`. Здесь `a = add`.
+
+Либо альтернативный вариант: `sudo usermod -a -G developers john`.
 
 Смотреть в каких группах состоит пользователь john: `groups john`.
 
@@ -21,7 +25,7 @@ aidar : aidar adm cdrom sudo dip plugdev lpadmin lxd sambashare
 
 Удалить пользователя john из группы developers: `sudo gpasswd -d john developers`. Здесь `d = delete`.
 
-Изменить primary group для пользователя john: `sudo usermod -g developers john`. Здесь `g = gid`.
+Изменить primary group для пользователя john: `sudo usermod -g testers john`. Здесь `g = gid`.
 
 Если использовать параметр `G`, то будет изменена secondary group пользователя.
 
