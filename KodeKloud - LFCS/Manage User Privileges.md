@@ -56,7 +56,7 @@ trinity   ALL= /bin/ls, /bin/stat
 
 Запустить команду от лица пользователя trinity: `sudo -u trinity ls /home/trinity`.
 
-sudo -lU user1   #смотреть какие sudo-команды может запускать юзер1
+Смотреть какие sudo-команды может запускать пользователь: `sudo -lU user1`.
 
 При попытке переключиться на пользователя с shell равным `/sbin/nologin` командой `su - rds-server` получим сообщение "This account is currently not available."
 
