@@ -14,6 +14,8 @@
 
 Смотреть список процессов, запущенных пользователем aaron в user-oriented-format: `ps u -U aaron`.
 
+Смотреть все процессы, порожденные другим процессом: `ps -o pid,command --ppid 62880`. Здесь `ppid = parent process ID`.
+
 "Грепнуть" список всех процессов и искать там syslog: `pgrep -a syslog`.
 
 Здесь `pgrep = process grep`, покажет PID искомого процесса и его название.
