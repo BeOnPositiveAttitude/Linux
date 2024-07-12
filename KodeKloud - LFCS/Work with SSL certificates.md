@@ -6,4 +6,6 @@
 
 Если требуется создать самоподписанный сертификат: `openssl req -x509 -noenc -newkey rsa:4096 -days 365 -keyout myprivate.key -out mycertificate.crt`. Здесь опция `-noenc` означает не шифровать приватный ключ.
 
+Либо можно не указывать параметры приватного ключа: `openssl req -x509 -noenc -days 365 -keyout priv.key -out kodekloud.crt`. Будут использованы дефолтные параметры.
+
 Далее смотрим созданные сертификат: `openssl x509 -in mycertificate.crt -text`.
