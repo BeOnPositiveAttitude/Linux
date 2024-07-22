@@ -163,7 +163,7 @@ done
 while true
 do
   echo "1. Add"
-  echo "2. Substract"
+  echo "2. Subtract"
   echo "3. Multiply"
   echo "4. Divide"
   echo "5. Quit"
@@ -172,29 +172,32 @@ do
 
   if [ $choice -eq 1 ]
   then
-    read -p "Enter Number1: " number1
-    read -p "Enter Number2: " number2
-    echo Answer=$(( $number1 + $number2 ))
+    read -p "Enter Number1: " num1
+    read -p "Enter Number2: " num2
+    echo Answer=$(( $num1 + $num2 ))
+
   elif [ $choice -eq 2 ]
   then
-    read -p "Enter Number1: " number1
-    read -p "Enter Number2: " number2
-    echo Answer=$(( $number1 - $number2 ))
+    read -p "Enter Number1: " num1
+    read -p "Enter Number2: " num2
+    echo Answer=$(( $num1 - $num2 ))
+
   elif [ $choice -eq 3 ]
   then
-    read -p "Enter Number1: " number1
-    read -p "Enter Number2: " number2
-    echo Answer=$(( $number1 * $number2 ))
+    read -p "Enter Number1: " num1
+    read -p "Enter Number2: " num2
+    echo Answer=$(( $num1 * $num2 ))
+
   elif [ $choice -eq 4 ]
   then
-    read -p "Enter Number1: " number1
-    read -p "Enter Number2: " number2
-    echo Answer=$(( $number1 / $number2 ))
+    read -p "Enter Number1: " num1
+    read -p "Enter Number2: " num2
+    echo Answer=$(( $num1 / $num2 ))
+
   elif [ $choice -eq 5 ]
   then
     break
-  else
-    continue
+
   fi
 done
 ```
