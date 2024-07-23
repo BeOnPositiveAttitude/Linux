@@ -174,25 +174,25 @@ do
   then
     read -p "Enter Number1: " num1
     read -p "Enter Number2: " num2
-    echo Answer=$(( $num1 + $num2 ))
+    echo Answer=$(( num1 + num2 ))
 
   elif [ $choice -eq 2 ]
   then
     read -p "Enter Number1: " num1
     read -p "Enter Number2: " num2
-    echo Answer=$(( $num1 - $num2 ))
+    echo Answer=$(( num1 - num2 ))
 
   elif [ $choice -eq 3 ]
   then
     read -p "Enter Number1: " num1
     read -p "Enter Number2: " num2
-    echo Answer=$(( $num1 * $num2 ))
+    echo Answer=$(( num1 * num2 ))
 
   elif [ $choice -eq 4 ]
   then
     read -p "Enter Number1: " num1
     read -p "Enter Number2: " num2
-    echo Answer=$(( $num1 / $num2 ))
+    echo Answer=$(( num1 / num2 ))
 
   elif [ $choice -eq 5 ]
   then
