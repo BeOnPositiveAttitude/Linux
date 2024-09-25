@@ -28,3 +28,10 @@ nmcli device status   #смотреть статус физических пор
 nmcli connection add type ethernet ifname enp0s8   #если есть физический порт и нужно добавить на него подключение
 
 nmap -p- localhost   #сканировать все порты на хосте
+
+### Настройка дополнительного сетевого интерфейса в Debian 12
+В конфиг /etc/network/interfaces добавляем строки:
+allow-hotplug enp0s8
+iface enp0s8 inet dhcp
+Выполняем команду ifup enp0s8
+
