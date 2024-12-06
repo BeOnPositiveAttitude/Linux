@@ -145,4 +145,5 @@ then
     echo "Advice has more than 5 words"
 else
     echo "Advice - $(cat advice.message) has 5 words or less" && exit 1
+fi
 ```
