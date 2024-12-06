@@ -130,3 +130,19 @@ Also keep these in mind:
 - The script must accept a month number as a command line argument.
 - If a month number is not provided as command line argument, the script must exit with the message `No month number given`.
 - The script must not accept a value other than 1 to 12. If not the script must exit with the error `Invalid month number given`.
+
+Можно писать в укороченном стиле:
+
+```bash
+[ $(wc -w < advice.message) -gt 5 ] && echo "Advice has more than 5 words" || (echo "Advice - $(cat advice.message) has 5 words or less" && exit 1)
+```
+
+Равно такому варианту:
+
+```
+if [ $(wc -w < advice.message) -gt 5 ]
+then
+    echo "Advice has more than 5 words"
+else
+    echo "Advice - $(cat advice.message) has 5 words or less" && exit 1
+```
