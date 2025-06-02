@@ -23,3 +23,11 @@ gpgcheck=0
 ```
 
 Проверить список репозиториев в системе: `yum repolist`.
+
+Установить пакет: `sudo yum install package_name`.
+
+Удалить пакет: `sudo yum remove package_name`.
+
+Искать пакет: `sudo yum search package_name`.
+
+Обновить все пакеты: `sudo yum update`.
